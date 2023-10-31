@@ -10,12 +10,59 @@ using namespace std;
 
 
 class Servers {
-public:
+
+private:
 	const int id;
 	static int gradPopulare;         //minimul obligatoriu, in procente
 	float stocare;
 	char* sistemOperare;
 	bool esteSecurizat;
+public:
+	int index;
+
+	const int getId() {
+		return this->id;
+	}
+
+	static int getGradPopulare() {
+		return Servers::gradPopulare;
+	}
+
+	static void setGradPopulare(int grad) {
+		if (grad > 0) {
+			Servers::gradPopulare = grad;
+		}
+	}
+	
+	float getStocare() {
+		return this->stocare;
+	}
+
+	void setStocare(float stocare) {
+		if (stocare > 0) {
+			this->stocare = stocare;
+		}
+	}
+
+	char* getSistemOperare() {
+		return this->sistemOperare;
+	}
+
+	void setSistemOperare(const char* sistemOperareNou){
+		if (this->sistemOperare != NULL)
+			delete[]this->sistemOperare;
+		sistemOperare = new char[strlen(sistemOperareNou) + 1];
+		strcpy_s(sistemOperare, strlen(sistemOperareNou) + 1, sistemOperareNou);
+	}
+
+	bool getEsteSecurizat() {
+		return this->esteSecurizat;
+	}
+
+	void setEsteSecurizat(bool estesec) {
+		this->esteSecurizat = estesec;
+	}
+
 
 	Servers():id(0){
 		this->stocare =100.3;
@@ -38,6 +85,30 @@ public:
 		esteSecurizat = false;
 	}
 
+
+	//constr de copiere:
+	Servers(const Servers& s) :id(s.id){
+		stocare = s.stocare;
+		this->sistemOperare = new char[strlen(s.sistemOperare) + 1];
+		strcpy_s(sistemOperare, strlen(s.sistemOperare) + 1, s.sistemOperare);
+		esteSecurizat = s.esteSecurizat;
+	}
+
+	//op egal:
+	Servers operator=(const Servers& s) {
+		if (this != &s) {
+			if (sistemOperare != NULL)
+			{
+				delete[]sistemOperare;
+			}
+			stocare = s.stocare;
+			sistemOperare = new char[strlen(sistemOperare) + 1];
+			strcpy_s(s.sistemOperare, strlen(sistemOperare) + 1, sistemOperare);
+			esteSecurizat = s.esteSecurizat;
+		}
+		return*this;
+	}
+
 	~Servers() {
 		if (this->sistemOperare != NULL) delete[]this->sistemOperare;
 	}
@@ -49,41 +120,105 @@ public:
 int Servers::gradPopulare = 20;
 
 class SmartPhones {
-public:
+
+private:
 	const int codFabricatie;
 	static int anulFabricatiei;
 	int stocare;
-	float*dimensiuneEcran;
-	string marca;
+	float dimensiuneEcran;
+	char* marca;
 
-	SmartPhones():codFabricatie(1000) {
+public:
+
+
+	SmartPhones() :codFabricatie(1000) {
 		this->stocare = 64;
-		this->dimensiuneEcran = new float[1];
-		this->dimensiuneEcran[0] = 22;
-		this->marca = "Samsung";
+		this->dimensiuneEcran = 22;
+		this->marca = new char[strlen("Samsung")+1];
+		strcpy_s(marca, strlen("Samsung") + 1, "Samsung");
 	}
 
-	SmartPhones(int stocareNoua):codFabricatie(1001) {
+	SmartPhones(int stocareNoua) :codFabricatie(1001) {
 		this->stocare = stocareNoua;
-		this->dimensiuneEcran = new float[1];
-		this->dimensiuneEcran[0] = 14;
-		this->marca = "Iphone";
+		this->dimensiuneEcran = 14;
+		this->marca = new char[strlen("Iphone") + 1];
+		strcpy_s(marca, strlen("Iphone") + 1, "Iphone");
 	}
 
 	SmartPhones(const int codFabricatieNou, int stocareNoua, float dimensiuneEcranNoua) :codFabricatie(codFabricatieNou) {
 		this->stocare = stocareNoua;
-		this->dimensiuneEcran = new float[1];
-		this->dimensiuneEcran[0] = dimensiuneEcranNoua;
-		this->marca = "Xiaomi";
+		this->dimensiuneEcran = dimensiuneEcranNoua;
+		this->marca = new char[strlen("Xiaomi") + 1];
+		strcpy_s(marca, strlen("Xiaomi") + 1, "Xiaomi");
 	}
 
 
+
+	SmartPhones(const SmartPhones& p):codFabricatie(p.codFabricatie) {
+		this->stocare = p.stocare;
+		this->dimensiuneEcran = p.dimensiuneEcran;
+		this->marca = new char[strlen(p.marca) + 1];
+		strcpy_s(marca, strlen(p.marca) + 1, p.marca);
+	}
+
+	SmartPhones operator=(const SmartPhones& p) {
+		if (this != &p)
+		{
+			if (marca != NULL) delete[]marca;
+			this->stocare = p.stocare;
+			this->dimensiuneEcran = p.dimensiuneEcran;
+			this->marca = new char[strlen(p.marca) + 1];
+			strcpy_s(marca, strlen(p.marca) + 1, p.marca);
+		}
+		return *this;
+	}
+		
+	//getters
+	
+	const int getCodFabricatie() {
+		return SmartPhones::codFabricatie;
+	}
+	static int getAnulFabricatiei() {
+		return SmartPhones::anulFabricatiei;
+	}
+	int getStocare() {
+		return this->stocare;
+	}
+	float getDimensiuneEcran() {
+		return this->dimensiuneEcran;
+	}
+	char* getMarca() {
+		return this->marca;
+	}
+
+	//setters
+
+	static void setAnulFabricatiei(int AnFabNou)
+	{
+		anulFabricatiei = AnFabNou;
+	}
+	
+	void setStocare(int stocareNoua) {
+		stocare = stocareNoua;
+	}
+
+	void setDimensiuneEcran(float dimensiuneEcranNoua) {
+		
+		dimensiuneEcran =dimensiuneEcranNoua;
+	}
+
+	void setMarca(const char* marcaNoua) {
+		marca = new char[strlen(marcaNoua) + 1];
+		strcpy_s(marca, strlen(marcaNoua) + 1, marcaNoua);
+	}
+	
+
 	~SmartPhones() {
-		if (dimensiuneEcran != NULL) delete[]this->dimensiuneEcran;
+		if (marca != NULL) delete[]this->marca;
 	}
 	
 	void afisare() {
-		cout << "Codul de fabricatie:" << codFabricatie << ". Anul fabricatiei:" << anulFabricatiei << ". Stocarea este de:" << stocare << " gb. Dimensiunea ecranului fiind de " << dimensiuneEcran[0] << " cm, iar marca este " << marca << "." << endl;
+		cout << "Codul de fabricatie:" << codFabricatie << ". Anul fabricatiei:" << anulFabricatiei << ". Stocarea este de:" << stocare << " gb. Dimensiunea ecranului fiind de " << dimensiuneEcran << " cm, iar marca este " << marca << "." << endl;
 	}
 
 
@@ -91,17 +226,19 @@ public:
 int SmartPhones::anulFabricatiei = 2022;
 
 class Laptops {
-public:
+private:
 	const int codFabricatie;
 	static int anulFabricatiei;
 	float dimensiuneEcran;
 	char* marca;
 	bool esteTouchscreen;
 
-	Laptops():codFabricatie(0){
+public:
+
+	Laptops() :codFabricatie(0) {
 		this->dimensiuneEcran = 22.4;
-		this->marca = new char[strlen("Lenovo")+1];
-		strcpy_s(this->marca, strlen("Lenovo")+1, "Lenovo");
+		this->marca = new char[strlen("Lenovo") + 1];
+		strcpy_s(this->marca, strlen("Lenovo") + 1, "Lenovo");
 		this->esteTouchscreen = false;
 	}
 
@@ -118,6 +255,67 @@ public:
 		strcpy_s(this->marca, strlen(marcaNoua) + 1, marcaNoua);
 		this->esteTouchscreen = false;
 	}
+
+
+
+	//constr copiere:
+	Laptops(const Laptops& l) :codFabricatie(codFabricatie) {
+		dimensiuneEcran = l.dimensiuneEcran;
+		marca = new char[strlen(l.marca) + 1];
+		strcpy_s(marca, strlen(l.marca) + 1, l.marca);
+		esteTouchscreen = l.esteTouchscreen;
+	}
+
+
+	//op egal:
+	Laptops operator=(const Laptops& l) {
+		if (this != &l) {
+			if (marca != NULL)
+				delete[]marca;
+			dimensiuneEcran = l.dimensiuneEcran;
+			marca = new char[strlen(l.marca) + 1];
+			strcpy_s(marca, strlen(l.marca) + 1, l.marca);
+			esteTouchscreen = l.esteTouchscreen;
+		}
+		return *this;
+	}
+
+
+	//getters:
+
+	const int getCodFabricatie() {
+		return Laptops::codFabricatie;
+	}
+	static int getanulFabricatiei() {
+		return Laptops::anulFabricatiei;
+	}
+	float getDimensiuneEcran() {
+		return this->dimensiuneEcran;
+	}
+	char* getMarca() {
+		return this->marca;
+	}
+	bool getEsteTouchscreen() {
+		return this->esteTouchscreen;
+	}
+
+	void setAnulFabricatiei(static int anulFabricatieiNou)
+	{
+		this->anulFabricatiei = anulFabricatieiNou;
+	}
+	void setDimensiuneEcran(float dimensiuneEcranNoua) {
+		this->dimensiuneEcran = dimensiuneEcranNoua;
+	}
+	void setMarca(const char* marcaNoua) {
+		if (marca != NULL) delete[]marca;
+		marca = new char[strlen(marcaNoua) + 1];
+		strcpy_s(marca, strlen(marcaNoua) + 1, marcaNoua);
+	}
+	void setEsteTouchscreen(bool esteTouchscreenNou) {
+		esteTouchscreen = esteTouchscreenNou;
+	}
+
+
 	
 	~Laptops() {
 		if (marca != NULL) delete[]marca;
@@ -128,7 +326,7 @@ public:
 		}
 
 };
-int Laptops::anulFabricatiei = 2022;
+int Laptops::anulFabricatiei = 2023;
 
 void main() {
 	
@@ -138,7 +336,32 @@ void main() {
 	servers.afisare();
 	servers1.afisare();
 	servers2.afisare();
+	Servers servers3(servers1);
+
+
+
+	//setteri:
+	servers3.setGradPopulare(10000);
+	servers3.setStocare(500.55);
+	servers3.setSistemOperare("Linux");
+	servers3.setEsteSecurizat(false);
+	servers3.afisare();
 	cout << endl;
+
+
+
+	//getteri:
+	cout << "Id servers3: " << servers3.getId() << endl;
+	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
+	cout << "Stocare servers3: " << servers3.getStocare() << endl;
+	cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
+	cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
+	cout << endl;
+
+
+
+
+
 
 
 
@@ -148,7 +371,27 @@ void main() {
 	smartphones.afisare();
 	smartphones2.afisare();
 	smartphones3.afisare();
+	SmartPhones sp4(smartphones2);
+
+
+	//setters
+	sp4.setAnulFabricatiei(2023);
+	sp4.setStocare(32);
+	sp4.setDimensiuneEcran(20);
+	sp4.setMarca("Lenovo");
+	sp4.afisare();
 	cout << endl;
+	
+	
+	//getters
+	cout <<"Cod fabricatie smartphone4: " << sp4.getCodFabricatie() << endl;
+	cout << "Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei() << endl;
+	cout << "Stocare smartphone4: " << sp4.getStocare()<< endl;
+	cout << "Dimensiune ecran smartphone4: " << sp4.getDimensiuneEcran() << endl;
+	cout << "Marca smartphone4: " << sp4.getMarca() << endl;
+	cout << endl;
+
+	
 
 
 
@@ -158,4 +401,15 @@ void main() {
 	laptops.afisare();
 	laptops1.afisare();
 	laptops2.afisare();
+	Laptops laptops3(laptops1);
+	//getters
+	cout << laptops3.getCodFabricatie() <<" "<< laptops3.getanulFabricatiei() << " " << laptops3.getDimensiuneEcran() << " " << laptops3.getMarca() << " " << (laptops3.getEsteTouchscreen()?" Este touchscreen ":" Nu este touchscreen ")<<endl;
+	//setters
+	laptops3.setAnulFabricatiei(2024);
+	laptops3.setDimensiuneEcran(10.4);
+	laptops3.setMarca("Motorola");
+	laptops3.setEsteTouchscreen(false);
+	laptops3.afisare();
+
+
 }
