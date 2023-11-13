@@ -1,5 +1,5 @@
 //Domeniu:IT
-//Obiecte:  Servere, Software, Laptopuri
+//Obiecte:  Servere, Smartphone-uri, Laptop-uri
 
 #include<iostream>
 #include<cstring>
@@ -132,6 +132,7 @@ public:
 		return citeste;
 	}
 
+
 	~Servers() {
 		if (this->sistemOperare != NULL) delete[]this->sistemOperare;
 	}
@@ -140,7 +141,12 @@ public:
 		cout << "id-" << id << " Gradul de populare minim: " << gradPopulare << ". Stocarea: " << stocare << ". Sistemul de operare folosit: " << sistemOperare << (esteSecurizat ? ". Serverul este securizat." : ". Serverul nu este securizat.") << endl;
 	}
 
-
+	//op float                             //calculez stocarea totala
+	explicit operator float() {
+		float aux = 0;
+		aux = stocare;
+		return aux;
+	}
 };
 int Servers::gradPopulare = 20;
 
@@ -179,19 +185,27 @@ public:
 	}
 
 	
-
+	//constr copiere
 	SmartPhones(const SmartPhones& p):codFabricatie(p.codFabricatie) {
 		this->nrStocari = p.nrStocari;
 		this->dimensiuneZonaStocare = new int[nrStocari];
+		for (int i = 0; i < p.nrStocari; i++) {
+			dimensiuneZonaStocare[i] = p.dimensiuneZonaStocare[i];
+		}
 		this->marca = p.marca;
 	}
 
+
+	//op egal
 	SmartPhones operator=(const SmartPhones& p) {
 		if (this != &p)
 		{
 			if (dimensiuneZonaStocare != NULL) delete[]dimensiuneZonaStocare;
 			this->nrStocari = p.nrStocari;
 			this->dimensiuneZonaStocare = new int[nrStocari];
+			for (int i = 0; i < p.nrStocari; i++) {
+				dimensiuneZonaStocare[i] = p.dimensiuneZonaStocare[i];
+			}
 			this->marca = p.marca;
 		}
 		return *this;
@@ -242,24 +256,19 @@ public:
 
 	//op cout
 	friend ostream& operator<<(ostream& afiseaza, const SmartPhones& smartphones) {
-		afiseaza << "Codul de fabricatie:" << smartphones.codFabricatie << ". Anul fabricatiei:" << smartphones.anulFabricatiei << ". Numarul de stocari este de: " << smartphones.nrStocari << " gb. Dimensiunile fiind de: ";
+		afiseaza << "Codul de fabricatie:" << smartphones.codFabricatie << ". Anul fabricatiei:" << smartphones.anulFabricatiei <<". Marca este: "<<smartphones.marca<< ". Numarul de stocari este de: " << smartphones.nrStocari << " gb. Dimensiunile fiind de: ";
 		for (int i = 0; i < smartphones.nrStocari; i++) {
 			afiseaza << smartphones.dimensiuneZonaStocare[i] << ", ";
 		}
-		afiseaza << ". Marca este: "<<smartphones.marca;
 		return afiseaza;
 	}
 
 
 
-	//const int codFabricatie;
-	//static int anulFabricatiei;
-	//int nrStocari;
-	//int* dimensiuneZonaStocare;
-	//string marca;
-
 	//op cin
 	friend istream& operator>>(istream& citeste, SmartPhones& smartphones) {
+		cout << "Marca noului smartphone: ";
+		citeste >> smartphones.marca;
 		cout << "Nr stocari pt noul smartphone: ";
 		citeste >> smartphones.nrStocari;
 		cout << " Stocarile noului smartphone fiind: ";
@@ -271,9 +280,23 @@ public:
 				citeste >> smartphones.dimensiuneZonaStocare[i];
 			}
 		}
-		cout << "Marca noului smartphone: ";
-		citeste >> smartphones.marca;
+		
 		return citeste;
+	}
+	//op string
+	operator string() {
+		return this->marca;
+	}
+
+	//op float
+	explicit operator float() {
+		float aux = 0;
+		for (int i = 0; i < nrStocari; i++)
+		{
+			aux = aux + dimensiuneZonaStocare[i];
+		}
+		aux = aux / nrStocari;
+		return aux;
 	}
 
 	~SmartPhones() {
@@ -322,86 +345,125 @@ public:
 
 
 
-	////constr copiere:
-	//Laptops(const Laptops& l) :codFabricatie(codFabricatie) {
-	//	dimensiuneEcran = l.dimensiuneEcran;
-	//	marca = new char[strlen(l.marca) + 1];
-	//	strcpy_s(marca, strlen(l.marca) + 1, l.marca);
-	//	esteTouchscreen = l.esteTouchscreen;
-	//}
+	//constr copiere:
+	Laptops(const Laptops& l) :codFabricatie(codFabricatie) {
+		nrProfiluri = l.nrProfiluri;
+		nrAccesari = new int[l.nrProfiluri];
+		for (int i = 0; i < l.nrProfiluri; i++) {
+			nrAccesari[i] = l.nrAccesari[i];
+		}
+		marca = l.marca;
+	}
 
 
-	////op egal:
-	//Laptops operator=(const Laptops& l) {
-	//	if (this != &l) {
-	//		if (marca != NULL)
-	//			delete[]marca;
-	//		dimensiuneEcran = l.dimensiuneEcran;
-	//		marca = new char[strlen(l.marca) + 1];
-	//		strcpy_s(marca, strlen(l.marca) + 1, l.marca);
-	//		esteTouchscreen = l.esteTouchscreen;
-	//	}
-	//	return *this;
-	//}
-
-	///*const int codFabricatie;
-	//static int anulFabricatiei;
-	//float dimensiuneEcran;
-	//char* marca;
-	//bool esteTouchscreen;*/
-
-	////getters:
-
-	//const int getCodFabricatie() {
-	//	return Laptops::codFabricatie;
-	//}
-	//static int getanulFabricatiei() {
-	//	return Laptops::anulFabricatiei;
-	//}
-	//float getDimensiuneEcran() {
-	//	return this->dimensiuneEcran;
-	//}
-	//char* getMarca() {
-	//	return this->marca;
-	//}
-	//bool getEsteTouchscreen() {
-	//	return this->esteTouchscreen;
-	//}
-
-	//void setAnulFabricatiei(static int anulFabricatieiNou)
-	//{
-	//	this->anulFabricatiei = anulFabricatieiNou;
-	//}
-	//void setDimensiuneEcran(float dimensiuneEcranNoua) {
-	//	this->dimensiuneEcran = dimensiuneEcranNoua;
-	//}
-	//void setMarca(const char* marcaNoua) {
-	//	if (marca != NULL) delete[]marca;
-	//	marca = new char[strlen(marcaNoua) + 1];
-	//	strcpy_s(marca, strlen(marcaNoua) + 1, marcaNoua);
-	//}
-	//void setEsteTouchscreen(bool esteTouchscreenNou) {
-	//	esteTouchscreen = esteTouchscreenNou;
-	//}
+	//op egal:
+	Laptops operator=(const Laptops& l) {
+		if (this != &l) {
+			if (nrAccesari != NULL)
+				delete[]nrAccesari;
+			nrProfiluri = l.nrProfiluri;
+			nrAccesari = new int[l.nrProfiluri];
+			for (int i = 0; i < l.nrProfiluri; i++) {
+				nrAccesari[i] = l.nrAccesari[i];
+			}
+			marca = l.marca;
+		}
+		return *this;
+	}
 
 
-	////op cout
-	//friend ostream& operator<<(ostream& afisare, const Laptops& laptops) {
-	//	afisare<< "Cod fabricatie:" << laptops.codFabricatie << ". Anul fabricatiei:" << laptops.anulFabricatiei << ". Dimensiunea ecranului:" << laptops.dimensiuneEcran << ". Marca:" << laptops.marca << ". " << (laptops.esteTouchscreen ? " Este touchscreen." : " Nu este touchscreen.") << endl;
-	//	return afisare;
-	//}
 
-	//
-	//~Laptops() {
-	//	if (marca != NULL) delete[]marca;
-	//}
-	/*const int codFabricatie;
-	static int anulFabricatiei;
-	int nrProfiluri;
-	int* nrAccesari;
-	string marca;*/
+	//getters:
+
+	const int getCodFabricatie() {
+		return Laptops::codFabricatie;
+	}
+	static int getanulFabricatiei() {
+		return Laptops::anulFabricatiei;
+	}
+	int getNrProfiluri() {
+		return this->nrProfiluri;
+	}
+
+	int getNrAccesari(int index) {
+		return this->nrAccesari[index];
+	}
+	string getMarca() {
+		return this->marca;
+	}
+
+
+
+	//setters 
+	void setAnulFabricatiei(static int anulFabricatieiNou)
+	{
+		this->anulFabricatiei = anulFabricatieiNou;
+	}
+
+
+	void setNrProfiluri(int nrProfiluriNou, int* nrAccesariNou) {
+		this->nrProfiluri = nrProfiluriNou;
+		if (nrAccesari != NULL) delete[]nrAccesari;
+		this->nrAccesari = new int[nrProfiluri];
+		for (int i = 0; i < nrProfiluriNou; i++) {
+			this->nrAccesari[i] = nrAccesariNou[i];
+		}
+	}
+	
+
+	void setMarca(string marcanoua) {
+		this->marca = marcanoua;
+	}
+
+
+	//op cout
+	friend ostream& operator<<(ostream& afisare, const Laptops& laptops) {
+		afisare << "Cod fabricatie:" << laptops.codFabricatie << ". Anul fabricatiei:" << laptops.anulFabricatiei << ". Marca:" << laptops.marca << ". Nr profiluri:" << laptops.nrProfiluri << ". Nr accesari pt fiecare profil: ";
+		for (int i = 0; i < laptops.nrProfiluri; i++) afisare << laptops.nrAccesari[i]<<", ";
+		return afisare;
+	}
+
+	//op cin
+	friend istream& operator>>(istream& citeste, Laptops& laptops) {
+		cout << endl;
+		cout << "Anul fabricatiei: ";
+		citeste >> laptops.anulFabricatiei;
+		cout << "Marca:";
+		citeste >> laptops.marca;
+		cout << "Nr profiluri: ";
+		citeste >> laptops.nrProfiluri;
+		cout << "Nr accesari pt fiecare profil: ";
+		laptops.nrAccesari = new int[laptops.nrProfiluri];
+		for (int i = 0; i < laptops.nrProfiluri; i++)
+		{
+			citeste >> laptops.nrAccesari[i];
+		}
+		return citeste;
+	}
+
+	//op string
+	operator string() {
+		return this->marca;
+	}
+
+	//op float
+	explicit operator float() {
+		float aux = 0;
+		for (int i = 0; i < nrProfiluri; i++) {
+			aux = aux + nrAccesari[i];
+		}
+		aux = aux / nrProfiluri;
+		return aux;
+	}
+
+
+
+	~Laptops() {
+		if (nrAccesari != NULL) delete[]nrAccesari;
+	}
+
 	void afisare() {
-		cout << "Cod fabricatie " << codFabricatie << "Anul fabr " << anulFabricatiei << "Nr profiluri " << nrProfiluri << "Marca: " << marca << "Nr accesari: ";
+		cout << "Cod fabricatie " << codFabricatie << ". Anul fabr " << anulFabricatiei << ". Marca: " << marca <<". Nr profiluri:" << nrProfiluri<< ". Nr accesari pt fiecare profil: ";
 		for (int i = 0; i < nrProfiluri; i++)
 			cout << nrAccesari[i] << ", ";
 	}
@@ -438,10 +500,14 @@ void main() {
 	//cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
 	//cout << endl;
 
-	//Servers servers4;
+	///*Servers servers4;
 	//cin >> servers4;
 	//cout << servers4; 
-	//cout << endl;
+	//cout << endl;*/
+
+	//float stocaretotala;
+	//stocaretotala = (float)servers1;
+	//cout <<"Stocarea serverului 1 este: "<< stocaretotala;
 
 
 
@@ -484,35 +550,52 @@ void main() {
 	//SmartPhones sp5;
 	//cin >> sp5;
 	//cout << sp5;
+	//string denumire;
+	//denumire = (string)smartphones2;
+	//cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
 	//
+	//float dimensiunipesmartphone;
+	//dimensiunipesmartphone = (float)sp4;
+	//cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
 
 
 	cout << endl;
 	Laptops laptops;
-	laptops.afisare();
-	cout << endl;
+	cout << laptops << endl;
+
 	Laptops laptops1(1);
-	laptops1.afisare();
-	cout << endl;
+	cout << laptops1<< endl;
+
 	Laptops laptops2(2, "Samsung");
-	laptops2.afisare();
+	cout<< laptops2<<endl;
 
-	//Laptops laptops1(1);
-	//Laptops laptops2(19.29 , "Samsung");
-	//cout << laptops;
-	//cout << laptops1;
-	//cout << laptops2;
-	//Laptops laptops3(laptops1);
-	//
-	////getters
-	//cout <<"Pt laptops3:    "<< laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getDimensiuneEcran() << " " << laptops3.getMarca() << " " << (laptops3.getEsteTouchscreen() ? " Este touchscreen " : " Nu este touchscreen ") << endl;
-	//
-	////setters
-	//laptops3.setAnulFabricatiei(2024);
-	//laptops3.setDimensiuneEcran(10.4);
-	//laptops3.setMarca("Motorola");
-	//laptops3.setEsteTouchscreen(false);
-	//cout << laptops3;
+	Laptops laptops3(laptops2);
+	cout<<laptops3 << endl;
+	
+	//getters
+	cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
+	for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
+		cout <<" "<< laptops3.getNrAccesari(i);
+	}
+	cout << endl;
+	
+	//setters
+	laptops3.setAnulFabricatiei(2024);
+	laptops3.setMarca("Motorola");
+	int accesarinoi[] = { 17,18,19,20,21 };
+	laptops3.setNrProfiluri(5, accesarinoi);
+	cout<<laptops3;
 
+	Laptops laptops4;
+	cin >> laptops4;
+	cout << laptops4;
+
+	string den;
+	den = (string)laptops4;
+	cout << endl<<"Denumirea laptopului 4 este: " << den;
+
+	float nrmediuaccesari;
+	nrmediuaccesari = (float)laptops3;
+	cout <<endl<< "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
 
 }
