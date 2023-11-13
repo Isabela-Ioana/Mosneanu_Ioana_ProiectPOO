@@ -166,10 +166,10 @@ public:
 	SmartPhones() :codFabricatie(1000) {
 		this->nrStocari = 3;
 		if (nrStocari != 0) {
-			this->dimensiuneZonaStocare = new int[nrStocari]{20, 21, 22};
+			this->dimensiuneZonaStocare = new int[nrStocari] {20, 21, 22};
 		}
 		this->marca = "Samsung";
-		
+
 	}
 
 	SmartPhones(string marcaNoua) :codFabricatie(1001) {
@@ -184,9 +184,9 @@ public:
 		this->marca = marcaNoua;
 	}
 
-	
+
 	//constr copiere
-	SmartPhones(const SmartPhones& p):codFabricatie(p.codFabricatie) {
+	SmartPhones(const SmartPhones& p) :codFabricatie(p.codFabricatie) {
 		this->nrStocari = p.nrStocari;
 		this->dimensiuneZonaStocare = new int[nrStocari];
 		for (int i = 0; i < p.nrStocari; i++) {
@@ -210,10 +210,10 @@ public:
 		}
 		return *this;
 	}
-	
-	
+
+
 	//getters
-	
+
 	const int getCodFabricatie() {
 		return SmartPhones::codFabricatie;
 	}
@@ -237,26 +237,26 @@ public:
 	{
 		anulFabricatiei = AnFabNou;
 	}
-	
+
 	void setNrStocari(int nrStocariNou, int* dimensiuniZoneStocareNoi) {
-	
+
 		this->nrStocari = nrStocariNou;
-			if (dimensiuneZonaStocare != NULL) delete[]dimensiuneZonaStocare;
-			this->dimensiuneZonaStocare = new int[nrStocari];
-			for (int i = 0; i < nrStocariNou; i++) {
-				dimensiuneZonaStocare[i] = dimensiuniZoneStocareNoi[i];
-			}
+		if (dimensiuneZonaStocare != NULL) delete[]dimensiuneZonaStocare;
+		this->dimensiuneZonaStocare = new int[nrStocari];
+		for (int i = 0; i < nrStocariNou; i++) {
+			dimensiuneZonaStocare[i] = dimensiuniZoneStocareNoi[i];
+		}
 	}
 
 	void setMarca(string marcaNoua) {
 		marca = marcaNoua;
 	}
-	
+
 
 
 	//op cout
 	friend ostream& operator<<(ostream& afiseaza, const SmartPhones& smartphones) {
-		afiseaza << "Codul de fabricatie:" << smartphones.codFabricatie << ". Anul fabricatiei:" << smartphones.anulFabricatiei <<". Marca este: "<<smartphones.marca<< ". Numarul de stocari este de: " << smartphones.nrStocari << " gb. Dimensiunile fiind de: ";
+		afiseaza << "Codul de fabricatie:" << smartphones.codFabricatie << ". Anul fabricatiei:" << smartphones.anulFabricatiei << ". Marca este: " << smartphones.marca << ". Numarul de stocari este de: " << smartphones.nrStocari << " gb. Dimensiunile fiind de: ";
 		for (int i = 0; i < smartphones.nrStocari; i++) {
 			afiseaza << smartphones.dimensiuneZonaStocare[i] << ", ";
 		}
@@ -280,7 +280,7 @@ public:
 				citeste >> smartphones.dimensiuneZonaStocare[i];
 			}
 		}
-		
+
 		return citeste;
 	}
 	//op string
@@ -298,6 +298,26 @@ public:
 		aux = aux / nrStocari;
 		return aux;
 	}
+
+	//op preincr      (intai se aduna si dupa se egaleaza- o sa aiba aceleasi valori)
+	SmartPhones operator++() {
+		for (int i = 0; i < this->nrStocari; i++)
+		{
+			this->dimensiuneZonaStocare[i]++;
+		}
+		return *this;
+	}
+	
+	//op postincr     (intai se egaleaza si dupa se aduna- o sa aiba val diferite)
+	SmartPhones operator++(int){
+		SmartPhones aux = *this;
+		for (int i = 0; i < nrStocari; i++)
+		{
+			dimensiuneZonaStocare[i]++;
+		}
+		return aux;
+	}
+
 
 	~SmartPhones() {
 		if (dimensiuneZonaStocare != NULL) delete[]dimensiuneZonaStocare;
@@ -456,7 +476,23 @@ public:
 		return aux;
 	}
 
+	//op preincrementare - intai aduna si dupa egaleaza
+	Laptops operator++() {
+		for (int i = 0; i <nrProfiluri; i++)
+		{
+			nrAccesari[i]++;
+		}
+		return *this;
+	}
 
+	//op postincrem - intai egaleaza si dupa aduna, n au val la fel
+	Laptops operator++(int) {
+		Laptops aux = *this;
+		for (int i = 0; i < nrProfiluri; i++) {
+			nrAccesari[i]++;
+		}
+		return aux;
+	}
 
 	~Laptops() {
 		if (nrAccesari != NULL) delete[]nrAccesari;
@@ -547,9 +583,9 @@ void main() {
 	cout << ". Marca smartphone4: " << sp4.getMarca();
 	cout << endl;
 
-	SmartPhones sp5;
+	/*SmartPhones sp5;
 	cin >> sp5;
-	cout << sp5;
+	cout << sp5;*/
 	string denumire;
 	denumire = (string)smartphones2;
 	cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
@@ -557,6 +593,17 @@ void main() {
 	float dimensiunipesmartphone;
 	dimensiunipesmartphone = (float)sp4;
 	cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
+
+	//preincr
+	SmartPhones sp6;
+	sp6 = ++sp4;
+	cout << endl;
+	cout << endl<<"-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
+	 
+	//postincr
+	SmartPhones sp7;
+	sp7 = sp4++;
+	cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
 
 
 	cout << endl;
@@ -598,4 +645,13 @@ void main() {
 	nrmediuaccesari = (float)laptops3;
 	cout <<endl<< "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
 
+
+	//preincrem
+	Laptops laptops5;
+	laptops5 = ++laptops3;
+	cout <<endl<< "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
+	//postincrem
+	Laptops laptops6;
+	laptops6 = laptops3++;
+	cout << endl << "-----Postincrementarea: " << laptops6 << "SIIIIIIIIi" << laptops3;
 }
