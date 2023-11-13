@@ -472,91 +472,91 @@ int Laptops::anulFabricatiei = 2023;
 
 void main() {
 	
-	//Servers servers;
-	//Servers servers1(200.8);
-	//Servers servers2(2,"Linux");
-	//cout << servers;
-	//cout << servers1;
-	//cout << servers2;
-	//Servers servers3(servers1);
+	Servers servers;
+	Servers servers1(200.8);
+	Servers servers2(2,"Linux");
+	cout << servers;
+	cout << servers1;
+	cout << servers2;
+	Servers servers3(servers1);
 
 
 
-	////setteri:
-	//servers3.setGradPopulare(10000);
-	//servers3.setStocare(500.55);
-	//servers3.setSistemOperare("Linux");
-	//servers3.setEsteSecurizat(false);
-	//cout << servers3;              //aici am pus cout in loc de void afisare
-	//cout << endl;
+	//setteri:
+	servers3.setGradPopulare(10000);
+	servers3.setStocare(500.55);
+	servers3.setSistemOperare("Linux");
+	servers3.setEsteSecurizat(false);
+	cout << servers3;             
+	cout << endl;
 
 
 
-	////getteri:
-	//cout << "Id servers3: " << servers3.getId() << endl;
-	//cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
-	//cout << "Stocare servers3: " << servers3.getStocare() << endl;
-	//cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
-	//cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
-	//cout << endl;
+	//getteri:
+	cout << "Id servers3: " << servers3.getId() << endl;
+	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
+	cout << "Stocare servers3: " << servers3.getStocare() << endl;
+	cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
+	cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
+	cout << endl;
 
-	///*Servers servers4;
-	//cin >> servers4;
-	//cout << servers4; 
-	//cout << endl;*/
+	Servers servers4;
+	cin >> servers4;
+	cout << servers4; 
+	cout << endl;
 
-	//float stocaretotala;
-	//stocaretotala = (float)servers1;
-	//cout <<"Stocarea serverului 1 este: "<< stocaretotala;
-
-
+	float stocaretotala;
+	stocaretotala = (float)servers1;
+	cout <<"Stocarea serverului 1 este: "<< stocaretotala;
 
 
 
 
 
-	//SmartPhones smartphones;
-	//cout << smartphones << endl;
-	//SmartPhones smartphones2("Iphone");
-	//cout<<smartphones2 << endl;
-	//SmartPhones smartphones3(1002, "Lenovo");
-	//cout << smartphones3<<endl;
-	//SmartPhones sp4(smartphones2);
-	//cout << sp4 << endl;
 
 
-	////setters
-	//sp4.setAnulFabricatiei(2023);
-	//int dimnoi[] = { 16,32,64,124,256 };
-	//sp4.setNrStocari(5, dimnoi);
-	//sp4.setMarca("Lenovo");
-	//cout << sp4;
-	//cout << endl;
-	//
-	//
-	//
+	SmartPhones smartphones;
+	cout << smartphones << endl;
+	SmartPhones smartphones2("Iphone");
+	cout<<smartphones2 << endl;
+	SmartPhones smartphones3(1002, "Lenovo");
+	cout << smartphones3<<endl;
+	SmartPhones sp4(smartphones2);
+	cout << sp4 << endl;
 
-	////getters
-	//cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
-	//cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
-	//cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
-	//cout << ". Dimensiuni zone stocare smartphone4: ";
-	//for (int i = 0; i < sp4.getNrStocari(); i++) {
-	//	cout << sp4.getDimensiuneZonaStocare(i)<<", ";
-	//}
-	//cout << ". Marca smartphone4: " << sp4.getMarca();
-	//cout << endl;
 
-	//SmartPhones sp5;
-	//cin >> sp5;
-	//cout << sp5;
-	//string denumire;
-	//denumire = (string)smartphones2;
-	//cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
-	//
-	//float dimensiunipesmartphone;
-	//dimensiunipesmartphone = (float)sp4;
-	//cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
+	//setters
+	sp4.setAnulFabricatiei(2023);
+	int dimnoi[] = { 16,32,64,124,256 };
+	sp4.setNrStocari(5, dimnoi);
+	sp4.setMarca("Lenovo");
+	cout << sp4;
+	cout << endl;
+	
+	
+	
+
+	//getters
+	cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
+	cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
+	cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
+	cout << ". Dimensiuni zone stocare smartphone4: ";
+	for (int i = 0; i < sp4.getNrStocari(); i++) {
+		cout << sp4.getDimensiuneZonaStocare(i)<<", ";
+	}
+	cout << ". Marca smartphone4: " << sp4.getMarca();
+	cout << endl;
+
+	SmartPhones sp5;
+	cin >> sp5;
+	cout << sp5;
+	string denumire;
+	denumire = (string)smartphones2;
+	cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
+	
+	float dimensiunipesmartphone;
+	dimensiunipesmartphone = (float)sp4;
+	cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
 
 
 	cout << endl;
