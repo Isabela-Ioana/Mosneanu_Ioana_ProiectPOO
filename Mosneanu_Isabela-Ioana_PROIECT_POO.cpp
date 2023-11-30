@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<cstring>
+#include <vector>
 
 using namespace std;
 
@@ -508,150 +509,207 @@ int Laptops::anulFabricatiei = 2023;
 
 void main() {
 	
-	Servers servers;
-	Servers servers1(200.8);
-	Servers servers2(2,"Linux");
-	cout << servers;
-	cout << servers1;
-	cout << servers2;
-	Servers servers3(servers1);
+	//Servers servers;
+	//Servers servers1(200.8);
+	//Servers servers2(2,"Linux");
+	//cout << servers;
+	//cout << servers1;
+	//cout << servers2;
+	//Servers servers3(servers1);
 
 
 
-	//setteri:
-	servers3.setGradPopulare(10000);
-	servers3.setStocare(500.55);
-	servers3.setSistemOperare("Linux");
-	servers3.setEsteSecurizat(false);
-	cout << servers3;             
-	cout << endl;
+	////setteri:
+	//servers3.setGradPopulare(10000);
+	//servers3.setStocare(500.55);
+	//servers3.setSistemOperare("Linux");
+	//servers3.setEsteSecurizat(false);
+	//cout << servers3;             
+	//cout << endl;
 
 
 
-	//getteri:
-	cout << "Id servers3: " << servers3.getId() << endl;
-	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
-	cout << "Stocare servers3: " << servers3.getStocare() << endl;
-	cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
-	cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
-	cout << endl;
+	////getteri:
+	//cout << "Id servers3: " << servers3.getId() << endl;
+	//cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
+	//cout << "Stocare servers3: " << servers3.getStocare() << endl;
+	//cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
+	//cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
+	//cout << endl;
 
-	Servers servers4;
-	cin >> servers4;
-	cout << servers4; 
-	cout << endl;
+	//Servers servers4;
+	//cin >> servers4;
+	//cout << servers4; 
+	//cout << endl;
 
-	float stocaretotala;
-	stocaretotala = (float)servers1;
-	cout <<"Stocarea serverului 1 este: "<< stocaretotala;
-
-
+	//float stocaretotala;
+	//stocaretotala = (float)servers1;
+	//cout <<"Stocarea serverului 1 este: "<< stocaretotala;
 
 
 
 
 
-	SmartPhones smartphones;
-	cout << smartphones << endl;
-	SmartPhones smartphones2("Iphone");
-	cout<<smartphones2 << endl;
-	SmartPhones smartphones3(1002, "Lenovo");
-	cout << smartphones3<<endl;
-	SmartPhones sp4(smartphones2);
-	cout << sp4 << endl;
 
 
-	//setters
-	sp4.setAnulFabricatiei(2023);
-	int dimnoi[] = { 16,32,64,124,256 };
-	sp4.setNrStocari(5, dimnoi);
-	sp4.setMarca("Lenovo");
-	cout << sp4;
-	cout << endl;
-	
-	
-	
+	//SmartPhones smartphones;
+	//cout << smartphones << endl;
+	//SmartPhones smartphones2("Iphone");
+	//cout<<smartphones2 << endl;
+	//SmartPhones smartphones3(1002, "Lenovo");
+	//cout << smartphones3<<endl;
+	//SmartPhones sp4(smartphones2);
+	//cout << sp4 << endl;
 
-	//getters
-	cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
-	cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
-	cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
-	cout << ". Dimensiuni zone stocare smartphone4: ";
-	for (int i = 0; i < sp4.getNrStocari(); i++) {
-		cout << sp4.getDimensiuneZonaStocare(i)<<", ";
+
+	////setters
+	//sp4.setAnulFabricatiei(2023);
+	//int dimnoi[] = { 16,32,64,124,256 };
+	//sp4.setNrStocari(5, dimnoi);
+	//sp4.setMarca("Lenovo");
+	//cout << sp4;
+	//cout << endl;
+	//
+	//
+	//
+
+	////getters
+	//cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
+	//cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
+	//cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
+	//cout << ". Dimensiuni zone stocare smartphone4: ";
+	//for (int i = 0; i < sp4.getNrStocari(); i++) {
+	//	cout << sp4.getDimensiuneZonaStocare(i)<<", ";
+	//}
+	//cout << ". Marca smartphone4: " << sp4.getMarca();
+	//cout << endl;
+
+	///*SmartPhones sp5;
+	//cin >> sp5;
+	//cout << sp5;*/
+	//string denumire;
+	//denumire = (string)smartphones2;
+	//cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
+	//
+	//float dimensiunipesmartphone;
+	//dimensiunipesmartphone = (float)sp4;
+	//cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
+
+	////preincr
+	//SmartPhones sp6;
+	//sp6 = ++sp4;
+	//cout << endl;
+	//cout << endl<<"-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
+	// 
+	////postincr
+	//SmartPhones sp7;
+	//sp7 = sp4++;
+	//cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
+
+
+	//cout << endl;
+	//Laptops laptops;
+	//cout << laptops << endl;
+
+	//Laptops laptops1(1);
+	//cout << laptops1<< endl;
+
+	//Laptops laptops2(2, "Samsung");
+	//cout<< laptops2<<endl;
+
+	//Laptops laptops3(laptops2);
+	//cout<<laptops3 << endl;
+	//
+	////getters
+	//cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
+	//for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
+	//	cout <<" "<< laptops3.getNrAccesari(i);
+	//}
+	//cout << endl;
+	//
+	////setters
+	//laptops3.setAnulFabricatiei(2024);
+	//laptops3.setMarca("Motorola");
+	//int accesarinoi[] = { 17,18,19,20,21 };
+	//laptops3.setNrProfiluri(5, accesarinoi);
+	//cout<<laptops3;
+
+	//Laptops laptops4;
+	//cin >> laptops4;
+	//cout << laptops4;
+
+	//string den;
+	//den = (string)laptops4;
+	//cout << endl<<"Denumirea laptopului 4 este: " << den;
+
+	//float nrmediuaccesari;
+	//nrmediuaccesari = (float)laptops3;
+	//cout <<endl<< "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
+
+
+	////preincrem
+	//Laptops laptops5;
+	//laptops5 = ++laptops3;
+	//cout <<endl<< "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
+	////postincrem
+	//Laptops laptops6;
+	//laptops6 = laptops3++;
+	//cout << endl << "-----Postincrementarea: " << laptops6 << "SIIIIIIIIi" << laptops3;
+
+
+
+
+	vector<Servers> vectorServers;
+	vector<SmartPhones> vectorSmartPhones;
+	vector<Laptops> vectorLaptops;
+
+
+
+	Servers server1;
+	cin >> server1;
+	vectorServers.push_back(server1);
+
+	for (const auto& server : vectorServers) {
+		cout<<server1;
 	}
-	cout << ". Marca smartphone4: " << sp4.getMarca();
-	cout << endl;
-
-	/*SmartPhones sp5;
-	cin >> sp5;
-	cout << sp5;*/
-	string denumire;
-	denumire = (string)smartphones2;
-	cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
-	
-	float dimensiunipesmartphone;
-	dimensiunipesmartphone = (float)sp4;
-	cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
-
-	//preincr
-	SmartPhones sp6;
-	sp6 = ++sp4;
-	cout << endl;
-	cout << endl<<"-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
-	 
-	//postincr
-	SmartPhones sp7;
-	sp7 = sp4++;
-	cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
 
 
-	cout << endl;
-	Laptops laptops;
-	cout << laptops << endl;
 
-	Laptops laptops1(1);
-	cout << laptops1<< endl;
 
-	Laptops laptops2(2, "Samsung");
-	cout<< laptops2<<endl;
+	SmartPhones phone1;
+	cin >> phone1;
+	vectorSmartPhones.push_back(phone1);
 
-	Laptops laptops3(laptops2);
-	cout<<laptops3 << endl;
-	
-	//getters
-	cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
-	for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
-		cout <<" "<< laptops3.getNrAccesari(i);
+	for (const auto& phone : vectorSmartPhones) {
+		cout << phone1;
 	}
-	cout << endl;
 	
-	//setters
-	laptops3.setAnulFabricatiei(2024);
-	laptops3.setMarca("Motorola");
-	int accesarinoi[] = { 17,18,19,20,21 };
-	laptops3.setNrProfiluri(5, accesarinoi);
-	cout<<laptops3;
-
-	Laptops laptops4;
-	cin >> laptops4;
-	cout << laptops4;
-
-	string den;
-	den = (string)laptops4;
-	cout << endl<<"Denumirea laptopului 4 este: " << den;
-
-	float nrmediuaccesari;
-	nrmediuaccesari = (float)laptops3;
-	cout <<endl<< "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
 
 
-	//preincrem
-	Laptops laptops5;
-	laptops5 = ++laptops3;
-	cout <<endl<< "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
-	//postincrem
-	Laptops laptops6;
-	laptops6 = laptops3++;
-	cout << endl << "-----Postincrementarea: " << laptops6 << "SIIIIIIIIi" << laptops3;
+
+	Laptops laptop1;
+	cin >> laptop1;
+	vectorLaptops.push_back(laptop1);
+
+	for (const auto& laptop : vectorLaptops) {
+		cout << laptop1;
+	}
+
+
+	const int rows = 2;
+	const int cols = 2;
+	Servers matrixServers[rows][cols];
+
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			cin >> matrixServers[i][j];
+		}
+	}
+
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			cout << matrixServers[i][j];
+		}
+	}
+
 }
