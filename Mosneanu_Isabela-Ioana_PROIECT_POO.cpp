@@ -524,11 +524,11 @@ public:
 		this->denumireComponenta = "Mouse";
 	}
 
-	ComponenteExterne(int nrVersiuniNou, int* preturiNoi, string denumireNoua,Laptops laptops2) {
+	ComponenteExterne(int nrVersiuniNou, int* preturiNoi, string denumireNoua, Laptops laptops2) {
 		this->nrVersiuni = nrVersiuniNou;
 		this->pretFiecareVersiune = new int[nrVersiuniNou];
 		for (int i = 0; i < nrVersiuniNou; i++) {
-			this->pretFiecareVersiune [i] = preturiNoi[i];
+			this->pretFiecareVersiune[i] = preturiNoi[i];
 		}
 		this->denumireComponenta = denumireNoua;
 		this->laptops2 = laptops2;
@@ -559,7 +559,8 @@ public:
 		}
 		return *this;
 	}
-	
+
+	//getters
 	int getNrVersiuni() {
 		return this->nrVersiuni;
 	}
@@ -573,8 +574,21 @@ public:
 		return this->laptops2;
 	}
 
+	//setters
+	void setNrVersiuni(int nrNouVersiuni, int * preturiNoi) {
+		this->nrVersiuni = nrNouVersiuni;
+		if (pretFiecareVersiune != NULL) delete[]pretFiecareVersiune;
+		pretFiecareVersiune = new int[nrNouVersiuni];
+		for (int i = 0; i < nrNouVersiuni; i++) {
+			this->pretFiecareVersiune[i] = preturiNoi[i];
+		}
+	}
+	void setDenumireComponenta(string dennoua) {
+		this->denumireComponenta = dennoua;
+	}
 
 
+	//op cout
 	friend ostream& operator<<(ostream& comex, const ComponenteExterne& comp) {
 		comex<<endl << comp.laptops2;
 		comex << " Nr versiuni: " << comp.nrVersiuni << ", cu preturile :" ;
@@ -584,6 +598,32 @@ public:
 		comex << " Nume componenta: " << comp.denumireComponenta;
 		comex << endl;
 		return comex;
+	}
+
+
+	//op cin
+	friend istream& operator>>(istream& citeste, ComponenteExterne& comp) {
+		cout << endl;
+		citeste >> comp.laptops2;
+		cout << " Nume componenta: ";
+		citeste >> comp.denumireComponenta;
+		cout << "Nr de versiuni: ";
+		citeste >> comp.nrVersiuni;
+		cout << "Preturile pt fiecare versiune: ";
+		comp.pretFiecareVersiune = new int[comp.nrVersiuni];
+		for (int i = 0; i < comp.nrVersiuni; i++) {
+			citeste >> comp.pretFiecareVersiune[i];
+		}
+		
+		return citeste;
+	}
+
+	//op preincrementare - intai aduna si dupa egaleaza
+	ComponenteExterne operator++() {
+		for (int i = 0; i < nrVersiuni; i++) {
+			pretFiecareVersiune[i]++;
+		}
+		return *this;
 	}
 
 	~ComponenteExterne() {
@@ -696,12 +736,12 @@ void main() {
 	cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
 
 
-	cout << endl;
+	/*cout << endl;
 	Laptops laptops;
 	cout << laptops << endl;
 
 	Laptops laptops1(1);
-	cout << laptops1<< endl;
+	cout << laptops1<< endl;*/
 
 	Laptops laptops2(2, "Samsung");
 	cout<< laptops2<<endl;
@@ -804,16 +844,28 @@ void main() {
 	ComponenteExterne comp1;
 	cout <<endl<<"COMP 1 ESTE" << comp1;
 	int preturinoi[] = { 900,901,902 };
-	ComponenteExterne comp2(3, preturinoi, " Mousepad",laptops3);
+	ComponenteExterne comp2(3, preturinoi, " Mousepad",laptops2);
 	cout << "COMP 2 ESTE " << comp2;
 	ComponenteExterne comp3(comp2);
 	cout <<"COMP 3 ESTE " << comp3; 
 
 	//getters
-	cout << comp3.getLaptops2();
+	cout<<"Getter: " << comp3.getLaptops2();
 	cout <<"Nr versiuni: "<< comp3.getNrVersiuni() << " : ";
 	for (int i = 0; i < comp3.getNrVersiuni(); i++) {
 		cout <<"versiunea"<<i+1<<" are pretul "<< comp3.getPretFiecareVersiune(i) << ", ";
 	}
 	cout << " Denumirea componentei: " << comp3.getDenumireComponenta();
+
+	int nrvers[] = { 123,456,789,159 };
+	cout << " Componenta 3 dupa update: ";
+	comp3.setNrVersiuni(4, nrvers);
+	cout << comp3;
+
+	ComponenteExterne comp4;
+	cin >> comp4;
+	
+	ComponenteExterne comp5;
+	comp5 = ++comp2;
+	cout << "COMP 5 ESTE" << comp5;
 }
