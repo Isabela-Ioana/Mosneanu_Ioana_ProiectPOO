@@ -2,6 +2,8 @@
 //Obiecte:  Servere, Smartphone-uri, Laptop-uri
 
 #include<iostream>
+#include<fstream>
+#include<string>
 #include<cstring>
 #include <vector>
 
@@ -111,8 +113,8 @@ public:
 
 
 	//op cout
-	friend ostream& operator<<(ostream& monitor,  Servers& servers) {
-		monitor << " Id- "<< servers.id << " Gradul de populare minim: " << servers.gradPopulare << ". Stocarea: " << servers.stocare << ". Sistemul de operare folosit: "<< servers.sistemOperare<< (servers.esteSecurizat? ". Serverul este securizat. ": ". Serverul nu este securizat.");
+	friend ostream& operator<<(ostream& monitor, Servers& servers) {
+		monitor << " Id- " << servers.id << " Gradul de populare minim: " << servers.gradPopulare << ". Stocarea: " << servers.stocare << ". Sistemul de operare folosit: " << servers.sistemOperare << (servers.esteSecurizat ? ". Serverul este securizat. " : ". Serverul nu este securizat.");
 		monitor << endl;
 		return monitor;
 	}
@@ -148,9 +150,35 @@ public:
 		aux = stocare;
 		return aux;
 	}
+	//const int id;
+	//static int gradPopulare;         //minimul obligatoriu, in procente
+	//float stocare;
+	//char* sistemOperare;
+	//bool esteSecurizat;
+	void serializare() {
+		ofstream f("servers.bin", ios::binary);
+		f.write((char*)&id, sizeof(id));
+		f.write((char*)&gradPopulare,sizeof(gradPopulare));
+		string mystr=to_string(stocare);
+		int length = mystr.length();
+		f.write((char*)&mystr, sizeof(mystr));
+		f.write((char*)&sistemOperare, sizeof(sistemOperare));
+		f.write((char*)&esteSecurizat, sizeof(esteSecurizat));
+		f.close();
+	}
+
+	void deseralizare() {
+		ifstream f("servers.bin", ios::binary);
+		f.read((char*)&id, sizeof(id));
+		f.read((char*)&gradPopulare, sizeof(gradPopulare));
+		f.read((char*)&stocare, sizeof(stocare));
+		f.read((char*)&esteSecurizat, sizeof(esteSecurizat));
+		f.close();
+	}
+
+
 };
 int Servers::gradPopulare = 20;
-
 
 class SmartPhones {
 
@@ -308,9 +336,9 @@ public:
 		}
 		return *this;
 	}
-	
+
 	//op postincr     (intai se egaleaza si dupa se aduna- o sa aiba val diferite)
-	SmartPhones operator++(int){
+	SmartPhones operator++(int) {
 		SmartPhones aux = *this;
 		for (int i = 0; i < nrStocari; i++)
 		{
@@ -327,10 +355,40 @@ public:
 	void afisare() {
 		int i;
 		cout << "Cod fabr: " << codFabricatie << ". An fabr: " << anulFabricatiei << ". Nr stocari " << nrStocari << ". Marca " << marca << ". Dim zone: ";
-		for (i = 0; i < nrStocari; i++) cout << dimensiuneZonaStocare[i]<<", ";
+		for (i = 0; i < nrStocari; i++) cout << dimensiuneZonaStocare[i] << ", ";
 		cout << endl;
 	}
 
+	
+	void serializare() {
+		ofstream f("fisier.bin", ios::binary);
+		f.write((char*)&nrStocari, sizeof(nrStocari));
+		for (int i = 0; i < nrStocari; i++) {
+			f.write((char*)&dimensiuneZonaStocare[i], sizeof(dimensiuneZonaStocare[i]));
+		}
+		int length = marca.length();
+		f.write((char*)&length, sizeof(length));
+		f.close();
+	}
+
+	void deseralizare() {
+		ifstream f("fisier.bin", ios::binary);
+		f.read((char*)&nrStocari, sizeof(nrStocari));
+		if (dimensiuneZonaStocare != NULL) delete[]dimensiuneZonaStocare;
+		dimensiuneZonaStocare = new int[nrStocari];
+		for (int i = 0; i < nrStocari; i++) {
+			f.read((char*)&dimensiuneZonaStocare[i], sizeof(dimensiuneZonaStocare[i]));
+		}
+		int length = 0;
+		f.read((char*)&length, sizeof(length));
+		char* buffer = new char[length+1];
+		f.read(buffer, length);
+		//buffer[length] = '\0';
+		//marca = string(buffer);
+		string myString(marca);
+		delete[]buffer;
+		f.close();
+	}
 
 };
 int SmartPhones::anulFabricatiei = 2022;
@@ -348,17 +406,17 @@ public:
 	Laptops() :codFabricatie(0) {
 		this->nrProfiluri = 0;
 		this->nrAccesari = NULL;
-		this->marca ="Lenovo";
-		
+		this->marca = "Lenovo";
+
 	}
 
 	Laptops(const int codFabricatieNou) :codFabricatie(codFabricatieNou) {
 		this->nrProfiluri = 2;
 		this->nrAccesari = new int[nrProfiluri] {12, 22};
-		this->marca =  "Asus";
-		}
+		this->marca = "Asus";
+	}
 
-	Laptops(const int codFabricatieNou,string marcaNoua) :codFabricatie(codFabricatieNou) {
+	Laptops(const int codFabricatieNou, string marcaNoua) :codFabricatie(codFabricatieNou) {
 		this->nrProfiluri = 3;
 		this->nrAccesari = new int[nrProfiluri] {100, 101, 102};
 		this->marca = marcaNoua;
@@ -430,7 +488,7 @@ public:
 			this->nrAccesari[i] = nrAccesariNou[i];
 		}
 	}
-	
+
 
 	void setMarca(string marcanoua) {
 		this->marca = marcanoua;
@@ -440,7 +498,7 @@ public:
 	//op cout
 	friend ostream& operator<<(ostream& afisare, const Laptops& laptops) {
 		afisare << "Cod fabricatie:" << laptops.codFabricatie << ". Anul fabricatiei:" << laptops.anulFabricatiei << ". Marca:" << laptops.marca << ". Nr profiluri:" << laptops.nrProfiluri << ". Nr accesari pt fiecare profil: ";
-		for (int i = 0; i < laptops.nrProfiluri; i++) afisare << laptops.nrAccesari[i]<<", ";
+		for (int i = 0; i < laptops.nrProfiluri; i++) afisare << laptops.nrAccesari[i] << ", ";
 		return afisare;
 	}
 
@@ -454,6 +512,7 @@ public:
 		cout << "Nr profiluri: ";
 		citeste >> laptops.nrProfiluri;
 		cout << "Nr accesari pt fiecare profil: ";
+		if (laptops.nrAccesari != NULL) delete[]laptops.nrAccesari;
 		laptops.nrAccesari = new int[laptops.nrProfiluri];
 		for (int i = 0; i < laptops.nrProfiluri; i++)
 		{
@@ -479,7 +538,7 @@ public:
 
 	//op preincrementare - intai aduna si dupa egaleaza
 	Laptops operator++() {
-		for (int i = 0; i <nrProfiluri; i++)
+		for (int i = 0; i < nrProfiluri; i++)
 		{
 			nrAccesari[i]++;
 		}
@@ -499,16 +558,47 @@ public:
 		if (nrAccesari != NULL) delete[]nrAccesari;
 	}
 
+
+	//const int codFabricatie;
+	//static int anulFabricatiei;
+	//int nrProfiluri;
+	//int* nrAccesari;
+	//string marca;
+	
+	//scriere in fisier << 
+	friend ofstream& operator<<(ofstream& scrie, const Laptops& l) {
+		scrie <<"Cod fabricatie: "<< l.codFabricatie;
+		scrie << ". Anul fabricatiei: " << l.anulFabricatiei;
+		scrie << ", Nr de profiluri: " << l.nrProfiluri;
+		for (int i = 0; i < l.nrProfiluri; i++) {
+			scrie << " accesari versiune " << i + 1 << " este: " << l.nrAccesari[i] << ", ";
+		}
+		scrie << l.marca;
+		return scrie;
+	}
+
+	//citire din fisier
+
+	friend ifstream& operator>>(ifstream& citeste, Laptops& l) {
+		//citeste >> l.codFabricatie;
+		citeste >> l.anulFabricatiei;
+		citeste >> l.nrProfiluri;
+		if (l.nrAccesari != NULL) delete[]l.nrAccesari;
+		l.nrAccesari = new int[l.nrProfiluri];
+		for (int i = 0; i < l.nrProfiluri; i++) {
+			citeste >> l.nrAccesari[i];
+		}
+		return citeste;
+	}
+
+
 	void afisare() {
-		cout << "Cod fabricatie " << codFabricatie << ". Anul fabr " << anulFabricatiei << ". Marca: " << marca <<". Nr profiluri:" << nrProfiluri<< ". Nr accesari pt fiecare profil: ";
+		cout << "Cod fabricatie " << codFabricatie << ". Anul fabr " << anulFabricatiei << ". Marca: " << marca << ". Nr profiluri:" << nrProfiluri << ". Nr accesari pt fiecare profil: ";
 		for (int i = 0; i < nrProfiluri; i++)
 			cout << nrAccesari[i] << ", ";
 	}
 };
 int Laptops::anulFabricatiei = 2023;
-
-
-
 
 class ComponenteExterne {
 private:
@@ -575,7 +665,7 @@ public:
 	}
 
 	//setters
-	void setNrVersiuni(int nrNouVersiuni, int * preturiNoi) {
+	void setNrVersiuni(int nrNouVersiuni, int* preturiNoi) {
 		this->nrVersiuni = nrNouVersiuni;
 		if (pretFiecareVersiune != NULL) delete[]pretFiecareVersiune;
 		pretFiecareVersiune = new int[nrNouVersiuni];
@@ -590,8 +680,8 @@ public:
 
 	//op cout
 	friend ostream& operator<<(ostream& comex, const ComponenteExterne& comp) {
-		comex<<endl << comp.laptops2;
-		comex << " Nr versiuni: " << comp.nrVersiuni << ", cu preturile :" ;
+		comex << endl << comp.laptops2;
+		comex << " Nr versiuni: " << comp.nrVersiuni << ", cu preturile :";
 		for (int i = 0; i < comp.nrVersiuni; i++) {
 			comex << " pt versiunea " << i + 1 << " este " << comp.pretFiecareVersiune[i] << ", ";
 		}
@@ -610,11 +700,12 @@ public:
 		cout << "Nr de versiuni: ";
 		citeste >> comp.nrVersiuni;
 		cout << "Preturile pt fiecare versiune: ";
+		if (comp.pretFiecareVersiune != NULL) delete[]comp.pretFiecareVersiune;
 		comp.pretFiecareVersiune = new int[comp.nrVersiuni];
 		for (int i = 0; i < comp.nrVersiuni; i++) {
 			citeste >> comp.pretFiecareVersiune[i];
 		}
-		
+
 		return citeste;
 	}
 
@@ -626,6 +717,30 @@ public:
 		return *this;
 	}
 
+	//scriere in fisier << 
+	friend ofstream& operator<<(ofstream& scrie,const ComponenteExterne& c) {
+		scrie<< c.laptops2;
+		scrie <<" Numele componentei: "<< c.denumireComponenta;
+		scrie << ", Nr de versiuni: "<<c.nrVersiuni<<"-";
+		for (int i = 0; i < c.nrVersiuni; i++) {
+			scrie <<" pret versiunea"<<i+1<<" este: "<< c.pretFiecareVersiune[i]<<", ";
+		}
+		return scrie;
+	}
+	
+	//citire din fisier
+
+	friend ifstream& operator>>(ifstream& citeste, ComponenteExterne& c) {
+		citeste >> c.laptops2;
+		citeste >> c.nrVersiuni;
+		if (c.pretFiecareVersiune != NULL) delete[]c.pretFiecareVersiune;
+		c.pretFiecareVersiune = new int[c.nrVersiuni];
+		for (int i = 0; i < c.nrVersiuni; i++) {
+			citeste>>c.pretFiecareVersiune[i];
+		}
+		return citeste;
+	}
+
 	~ComponenteExterne() {
 		if (pretFiecareVersiune != NULL) delete[]pretFiecareVersiune;
 	}
@@ -634,10 +749,10 @@ public:
 
 
 
-
+ 
 
 void main() {
-	
+
 	Servers servers;
 	Servers servers1(200.8);
 	Servers servers2(2,"Linux");
@@ -648,7 +763,7 @@ void main() {
 
 
 
-	//setteri:
+	setteri:
 	servers3.setGradPopulare(10000);
 	servers3.setStocare(500.55);
 	servers3.setSistemOperare("Linux");
@@ -658,7 +773,7 @@ void main() {
 
 
 
-	//getteri:
+	getteri:
 	cout << "Id servers3: " << servers3.getId() << endl;
 	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
 	cout << "Stocare servers3: " << servers3.getStocare() << endl;
@@ -736,19 +851,19 @@ void main() {
 	cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
 
 
-	/*cout << endl;
+	cout << endl;
 	Laptops laptops;
 	cout << laptops << endl;
 
 	Laptops laptops1(1);
-	cout << laptops1<< endl;*/
+	cout << laptops1<< endl;
 
 	Laptops laptops2(2, "Samsung");
-	cout<< laptops2<<endl;
+	cout << laptops2 << endl;
 
 	Laptops laptops3(laptops2);
 	cout<<laptops3 << endl;
-	
+
 	//getters
 	cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
 	for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
@@ -842,18 +957,18 @@ void main() {
 	}
 
 	ComponenteExterne comp1;
-	cout <<endl<<"COMP 1 ESTE" << comp1;
+	cout << endl << "COMP 1 ESTE" << comp1;
 	int preturinoi[] = { 900,901,902 };
-	ComponenteExterne comp2(3, preturinoi, " Mousepad",laptops2);
+	ComponenteExterne comp2(3, preturinoi, " Mousepad", laptops2);
 	cout << "COMP 2 ESTE " << comp2;
 	ComponenteExterne comp3(comp2);
-	cout <<"COMP 3 ESTE " << comp3; 
+	cout << "COMP 3 ESTE " << comp3;
 
 	//getters
-	cout<<"Getter: " << comp3.getLaptops2();
-	cout <<"Nr versiuni: "<< comp3.getNrVersiuni() << " : ";
+	cout << "Getter: " << comp3.getLaptops2();
+	cout << "Nr versiuni: " << comp3.getNrVersiuni() << " : ";
 	for (int i = 0; i < comp3.getNrVersiuni(); i++) {
-		cout <<"versiunea"<<i+1<<" are pretul "<< comp3.getPretFiecareVersiune(i) << ", ";
+		cout << "versiunea" << i + 1 << " are pretul " << comp3.getPretFiecareVersiune(i) << ", ";
 	}
 	cout << " Denumirea componentei: " << comp3.getDenumireComponenta();
 
@@ -864,8 +979,40 @@ void main() {
 
 	ComponenteExterne comp4;
 	cin >> comp4;
-	
+
 	ComponenteExterne comp5;
 	comp5 = ++comp2;
 	cout << "COMP 5 ESTE" << comp5;
+
+	
+
+	ofstream file("fisier.txt", ios::out);
+	file << comp2;
+
+	ifstream citire("fisier.txt", ios::in);
+	ComponenteExterne comp10;
+	cin >> comp10;
+	file << comp10;              //mi a pus in fisier tot ce citisem de la tast
+
+	ofstream filee("laptops.txt", ios::out);
+	filee << laptops2;
+
+	Laptops laptops10;
+	cin >> laptops10;
+	file << laptops10;
+
+	smartphones3.serializare();
+	cout<< smartphones3;
+
+	SmartPhones sp10;
+	sp10.deseralizare();
+	cout << sp10;
+
+	servers2.serializare();
+	cout << servers2;
+	
+	Servers servers10;
+	servers10.deseralizare();
+	cout << servers10;
+	
 }
