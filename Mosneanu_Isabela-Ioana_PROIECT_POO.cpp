@@ -150,11 +150,7 @@ public:
 		aux = stocare;
 		return aux;
 	}
-	//const int id;
-	//static int gradPopulare;         //minimul obligatoriu, in procente
-	//float stocare;
-	//char* sistemOperare;
-	//bool esteSecurizat;
+
 	void serializare() {
 		ofstream f("servers.bin", ios::binary);
 		f.write((char*)&id, sizeof(id));
@@ -578,7 +574,6 @@ public:
 	}
 
 	//citire din fisier
-
 	friend ifstream& operator>>(ifstream& citeste, Laptops& l) {
 		//citeste >> l.codFabricatie;
 		citeste >> l.anulFabricatiei;
@@ -747,8 +742,162 @@ public:
 
 };
 
+class SmartPhonesCuCamera4k :public SmartPhones {
+private:
+	float pretTelefon4k;
+	int nrCamere;
+	int* megapixeli;
+public:
+	SmartPhonesCuCamera4k() :SmartPhones() {
+		this->pretTelefon4k = 2499.99;
+		this->nrCamere = 2;
+		this->megapixeli = new int[nrCamere] {120,130};
+	}
+	
+	SmartPhonesCuCamera4k(float pretNou, int camereNou, int* megapixeliNou) :SmartPhones() {
+		this->pretTelefon4k = pretNou;
+		this->nrCamere = camereNou;
+		this->megapixeli = new int[camereNou];
+		for (int i = 0; i < camereNou; i++) {
+			this->megapixeli[i] = megapixeliNou[i];
+		}
+	}
+	
+	//constr copiere
+	SmartPhonesCuCamera4k(const SmartPhonesCuCamera4k& s4) :SmartPhones(s4) {
+		this->pretTelefon4k = s4.pretTelefon4k;
+		this->nrCamere = s4.nrCamere;
+		this->megapixeli = new int[s4.nrCamere];
+		for (int i = 0; i < s4.nrCamere; i++) {
+			this->megapixeli[i] = s4.megapixeli[i];
+		}
+	}
+
+	//op=
+	SmartPhonesCuCamera4k operator=(const SmartPhonesCuCamera4k& s4) {
+		if (this != &s4) {
+			SmartPhones::operator=(s4);
+			this->pretTelefon4k = s4.pretTelefon4k;
+			this->nrCamere = s4.nrCamere;
+			if (megapixeli != NULL) delete[]megapixeli;
+			this->megapixeli = new int[s4.nrCamere];
+			for (int i = 0; i < s4.nrCamere; i++) {
+				this->megapixeli[i] = s4.megapixeli[i];
+			}
+		}
+		return *this;
+	}
+
+	//getters
+	float getPretTelefon4k() {
+		return this->pretTelefon4k;
+	}
+	int getNrCamere() {
+		return this->nrCamere;
+	}
+	int getMexapixeli(int index) {
+		return this->megapixeli[index];
+	}
+	string getMarca() {
+		return SmartPhones::getMarca();
+	}
+	int getCateStocari() {
+		return SmartPhones::getNrStocari();
+	}
+
+	//setters
+	void setPretTelefon4k(float pretNou) {
+		this->pretTelefon4k = pretNou;
+	}
+	void setNrCamere(int nrCamNou, int* megapixeliNoi) {
+		this->nrCamere = nrCamNou;
+		if (megapixeli != NULL) delete[]megapixeli;
+		megapixeli = new int[nrCamNou];
+		for (int i = 0; i < nrCamNou; i++) {
+			this->megapixeli[i] = megapixeliNoi[i];
+		}
+	}
+	
+	void setMarca(string marcaIar) {
+		SmartPhones::setMarca(marcaIar);
+	}
+
+	//op cout
+	friend ostream& operator<<(ostream& scrie, const SmartPhonesCuCamera4k& sp) {
+		scrie << (SmartPhones)sp;
+		scrie << ". Pretul telefonului: " << sp.pretTelefon4k;
+		scrie << ". Telefonul are " << sp.nrCamere << " camere cu ";
+		for (int i = 0; i < sp.nrCamere; i++) {
+			scrie << sp.megapixeli[i] << ", ";
+		}
+		scrie << " megapixeli. ";
+		return scrie;
+	}
+	
+	~SmartPhonesCuCamera4k() {
+		if (megapixeli != NULL) delete[]megapixeli;
+	}
 
 
+};
+
+class LaptopTouchscreen :public Laptops {
+private:
+	bool nevoieDePixSpecial;
+	int nrMaximDeAmprentePrimite;
+	int* deCateOriAFostFolositaFiecareAmprenta;
+public:
+	LaptopTouchscreen():Laptops(2,"Samsung") {
+		this->nevoieDePixSpecial = 1;
+		this->nrMaximDeAmprentePrimite = 2;
+		this->deCateOriAFostFolositaFiecareAmprenta = new int[nrMaximDeAmprentePrimite] {1303, 1310};
+	}
+	
+	LaptopTouchscreen(bool nevNoua,int maximNou,int* folositNou) :Laptops(2, "Samsung") {
+		this->nevoieDePixSpecial = nevNoua;
+		this->nrMaximDeAmprentePrimite = maximNou;
+		this->deCateOriAFostFolositaFiecareAmprenta = new int[maximNou];
+		for (int i = 0; i < maximNou; i++) {
+			this->deCateOriAFostFolositaFiecareAmprenta[i] = folositNou[i];
+		}
+	}
+	//getters
+	bool getPix() {
+		return nevoieDePixSpecial;
+	}
+	int getNrAmprMaxim() {
+		return nrMaximDeAmprentePrimite;
+	}
+	int getDeCateOriFol(int index) {
+		return deCateOriAFostFolositaFiecareAmprenta[index];
+	}
+	string getMarcaLaptop() {
+		return Laptops::getMarca();
+	}
+	//setters
+	void setPix(bool pixNou) {
+		this->nevoieDePixSpecial = pixNou;
+	}
+	void setNrAmprMaxim(int nrAmprNou,int* deCateOriFAmpr) {
+		this->nrMaximDeAmprentePrimite = nrAmprNou;
+		this->deCateOriAFostFolositaFiecareAmprenta = new int[nrAmprNou];
+		for (int i = 0; i < nrAmprNou; i++) {
+			deCateOriAFostFolositaFiecareAmprenta[i] = deCateOriFAmpr[i];
+		}
+	}
+
+	//op cout
+	friend ostream& operator<<(ostream& scrie, const LaptopTouchscreen& lt) {
+		scrie << (Laptops)lt;
+		scrie << ". Are nevoie de pix special? " << (lt.nevoieDePixSpecial ? " Are nevoie " : " Nu are nevoie ") << ". Cate amprente poate inregistra maxim? " << lt.nrMaximDeAmprentePrimite << ". De cate ori a fost folosita fiecare amprenta?";
+		for (int i = 0; i < lt.nrMaximDeAmprentePrimite; i++) {
+			scrie<<" amprenta "<<i+1 << " de " << lt.deCateOriAFostFolositaFiecareAmprenta[i] << " ori,";
+		}
+		return scrie;
+	}
+
+
+};
  
 
 void main() {
@@ -994,12 +1143,28 @@ void main() {
 	cin >> comp10;
 	file << comp10;              //mi a pus in fisier tot ce citisem de la tast
 
-	ofstream filee("laptops.txt", ios::out);
+	/*ofstream filee("daaa.txt", ios::out);
 	filee << laptops2;
 
 	Laptops laptops10;
 	cin >> laptops10;
-	file << laptops10;
+	filee << laptops10;
+
+	ifstream citeste("daaa.txt");
+	Laptops laptopCitit;
+
+	if (citeste)
+	{
+		cout << "Datele pacientului din fisierul text: " << endl;
+		citeste >> laptopCitit;
+		cout << laptopCitit << endl;
+		citeste.close();
+		cout << "Datele au fost citite cu succes!" << endl;
+	}
+	else
+	{
+		cout << "Fisierul text nu s-a putut deschide." << endl;
+	}*/
 
 	smartphones3.serializare();
 	cout<< smartphones3;
@@ -1013,6 +1178,48 @@ void main() {
 	
 	Servers servers10;
 	servers10.deseralizare();
-	cout << servers10;
+	cout<< servers10;
 	
+	SmartPhonesCuCamera4k su;
+	cout << su; 
+	cout << endl;
+	int mega[] = { 99,100,101 };
+	SmartPhonesCuCamera4k su2(3299.99, 3, mega);
+	cout << su2;
+	cout << endl;
+	SmartPhonesCuCamera4k su3(su2);
+	cout << su3;
+
+
+	//getters
+	cout << endl << "Marca telefonului " << su3.getMarca() << ". Nr stocari al telefonului: " << su3.getCateStocari()<< ". Pret telefon " << su3.getPretTelefon4k() << " Nr camere " << su3.getNrCamere() << " cu nr de megapixeli: ";
+	for (int i = 0; i < su3.getNrCamere(); i++) {
+		cout << su3.getMexapixeli(i)<<", ";
+	}
+
+	//setters
+	su3.setPretTelefon4k(4999.99);
+	int pixeli[] = { 200,201,202,203 };
+	su3.setNrCamere(4, pixeli);
+	su3.setMarca("Lovolk");
+	cout<<endl << su3;
+
+	LaptopTouchscreen lt;
+	cout <<endl<<"Laptop cu touchscreen 1:" <<lt;
+	int folosit[] = { 123,456,789,101 };
+	LaptopTouchscreen lt1(0, 4, folosit);
+	cout <<endl<<"Laptop cu touchscreen 2:"<< lt1;
+	
+	//getters
+	cout << endl << " Are nev de pix? " << (lt1.getPix() ? "da" : "nu") << " Marca laptop: " << lt1.getMarcaLaptop() << " Nr maxim de utilizatori care pot seta o amprenta: " << lt1.getNrAmprMaxim() << " De cate ori si-a folosit fiecare utilizator amprenta: ";
+	for (int i = 0; i < lt1.getNrAmprMaxim(); i++) {
+		cout << " utilizatorul " << i + 1 << " a folosit de " << lt1.getDeCateOriFol(i) << " ori.";
+	}
+
+	//setters
+	lt1.setPix(0);
+	int ampr[] = { 12,14,15,15,71 };
+	lt1.setNrAmprMaxim(5, ampr);
+	cout <<endl<<" Specificatiile si informatiile laptopului 2 cu touchscreen au fost actualizate: " << lt1;
+
 }
