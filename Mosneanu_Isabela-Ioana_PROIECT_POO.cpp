@@ -421,7 +421,7 @@ public:
 
 
 	//constr copiere:
-	Laptops(const Laptops& l) :codFabricatie(codFabricatie) {
+	Laptops(const Laptops& l) :codFabricatie(l.codFabricatie) {
 		nrProfiluri = l.nrProfiluri;
 		nrAccesari = new int[l.nrProfiluri];
 		for (int i = 0; i < l.nrProfiluri; i++) {
@@ -861,6 +861,33 @@ public:
 			this->deCateOriAFostFolositaFiecareAmprenta[i] = folositNou[i];
 		}
 	}
+
+	//constr copiere
+	LaptopTouchscreen(const LaptopTouchscreen& lp):Laptops(lp) {
+		this->nevoieDePixSpecial = lp.nevoieDePixSpecial;
+		this->nrMaximDeAmprentePrimite = lp.nrMaximDeAmprentePrimite;
+		this->deCateOriAFostFolositaFiecareAmprenta = new int[lp.nrMaximDeAmprentePrimite];
+		for (int i = 0; i < lp.nrMaximDeAmprentePrimite; i++) {
+			deCateOriAFostFolositaFiecareAmprenta[i] = lp.deCateOriAFostFolositaFiecareAmprenta[i];
+		}
+	}
+	//op =
+	LaptopTouchscreen operator=(const LaptopTouchscreen& lp) {
+		if (this != &lp) {
+			Laptops::operator=(lp);
+			this->nevoieDePixSpecial = lp.nevoieDePixSpecial;
+			this->nrMaximDeAmprentePrimite = lp.nrMaximDeAmprentePrimite;
+			if (deCateOriAFostFolositaFiecareAmprenta != NULL) delete[]deCateOriAFostFolositaFiecareAmprenta;
+			this->deCateOriAFostFolositaFiecareAmprenta = new int[lp.nrMaximDeAmprentePrimite];
+			for (int i = 0; i < lp.nrMaximDeAmprentePrimite; i++) {
+				deCateOriAFostFolositaFiecareAmprenta[i] = lp.deCateOriAFostFolositaFiecareAmprenta[i];
+			}
+		}
+		return *this;
+	}
+	
+	
+
 	//getters
 	bool getPix() {
 		return nevoieDePixSpecial;
@@ -896,7 +923,9 @@ public:
 		return scrie;
 	}
 
-
+	~LaptopTouchscreen() {
+		if (deCateOriAFostFolositaFiecareAmprenta != NULL) delete[]deCateOriAFostFolositaFiecareAmprenta;
+	}
 };
  
 
@@ -912,7 +941,7 @@ void main() {
 
 
 
-	setteri:
+	//setteri:
 	servers3.setGradPopulare(10000);
 	servers3.setStocare(500.55);
 	servers3.setSistemOperare("Linux");
@@ -922,7 +951,7 @@ void main() {
 
 
 
-	getteri:
+	//getteri:
 	cout << "Id servers3: " << servers3.getId() << endl;
 	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
 	cout << "Stocare servers3: " << servers3.getStocare() << endl;
@@ -1143,7 +1172,7 @@ void main() {
 	cin >> comp10;
 	file << comp10;              //mi a pus in fisier tot ce citisem de la tast
 
-	/*ofstream filee("daaa.txt", ios::out);
+	ofstream filee("daaa.txt", ios::out);
 	filee << laptops2;
 
 	Laptops laptops10;
@@ -1164,7 +1193,7 @@ void main() {
 	else
 	{
 		cout << "Fisierul text nu s-a putut deschide." << endl;
-	}*/
+	}
 
 	smartphones3.serializare();
 	cout<< smartphones3;
@@ -1211,9 +1240,9 @@ void main() {
 	cout <<endl<<"Laptop cu touchscreen 2:"<< lt1;
 	
 	//getters
-	cout << endl << " Are nev de pix? " << (lt1.getPix() ? "da" : "nu") << " Marca laptop: " << lt1.getMarcaLaptop() << " Nr maxim de utilizatori care pot seta o amprenta: " << lt1.getNrAmprMaxim() << " De cate ori si-a folosit fiecare utilizator amprenta: ";
+	cout << endl<< " Are nev de pix? " << (lt1.getPix() ? "da" : "nu") << " Marca laptop: " << lt1.getMarcaLaptop() << " Nr maxim de utilizatori care pot seta o amprenta: " << lt1.getNrAmprMaxim() << " De cate ori si-a folosit fiecare utilizator amprenta: ";
 	for (int i = 0; i < lt1.getNrAmprMaxim(); i++) {
-		cout << " utilizatorul " << i + 1 << " a folosit de " << lt1.getDeCateOriFol(i) << " ori.";
+		cout << " utilizatorul " << i + 1 << " a folosit de " << lt1.getDeCateOriFol(i) << " ori";
 	}
 
 	//setters
@@ -1221,5 +1250,22 @@ void main() {
 	int ampr[] = { 12,14,15,15,71 };
 	lt1.setNrAmprMaxim(5, ampr);
 	cout <<endl<<" Specificatiile si informatiile laptopului 2 cu touchscreen au fost actualizate: " << lt1;
+
+
+	Laptops *ptr= &lt;
+	cout <<endl<< "______________________________________________________"<<endl << "Marca: "<< ptr->getMarca()<<". An fabricatie: " << ptr->getanulFabricatiei()<<". Cod fabricatie: " << ptr->getCodFabricatie()<<". Nr profiluri: " << ptr->getNrProfiluri();
+	for (int i = 0; i < ptr->getNrProfiluri(); i++) {
+		cout <<" profilul "<<i+1<<" are " << ptr->getNrAccesari(i)<< " accesari ";
+		if (i < ptr->getNrProfiluri()-1) cout << ", ";
+		else cout << ".";
+	}
+
+	SmartPhones* smph = &su;
+	cout<<endl<< "______________________________________________________" << endl<< "Codul de fabricatie: " << smph->getCodFabricatie() << ". Anul fabricatiei:" << smph->getAnulFabricatiei() << ". Marca este: " << smph->getMarca() << ". Numarul de stocari este de: " << smph->getNrStocari() << " gb. Dimensiunile fiind de: ";
+	for (int i = 0; i < smph->getNrStocari(); i++) {
+		cout <<" stocarea "<<i+1<<" are "<< smph->getDimensiuneZonaStocare(i)<<" gb ";
+		if (i < smph->getNrStocari() - 1) cout << ", ";
+		else cout << ".";
+	}
 
 }
