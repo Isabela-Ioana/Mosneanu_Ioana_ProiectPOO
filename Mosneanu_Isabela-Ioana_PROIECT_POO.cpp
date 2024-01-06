@@ -154,8 +154,8 @@ public:
 	void serializare() {
 		ofstream f("servers.bin", ios::binary);
 		f.write((char*)&id, sizeof(id));
-		f.write((char*)&gradPopulare,sizeof(gradPopulare));
-		string mystr=to_string(stocare);
+		f.write((char*)&gradPopulare, sizeof(gradPopulare));
+		string mystr = to_string(stocare);
 		int length = mystr.length();
 		f.write((char*)&mystr, sizeof(mystr));
 		f.write((char*)&sistemOperare, sizeof(sistemOperare));
@@ -355,7 +355,7 @@ public:
 		cout << endl;
 	}
 
-	
+
 	void serializare() {
 		ofstream f("fisier.bin", ios::binary);
 		f.write((char*)&nrStocari, sizeof(nrStocari));
@@ -377,7 +377,7 @@ public:
 		}
 		int length = 0;
 		f.read((char*)&length, sizeof(length));
-		char* buffer = new char[length+1];
+		char* buffer = new char[length + 1];
 		f.read(buffer, length);
 		//buffer[length] = '\0';
 		//marca = string(buffer);
@@ -560,10 +560,10 @@ public:
 	//int nrProfiluri;
 	//int* nrAccesari;
 	//string marca;
-	
+
 	//scriere in fisier << 
 	friend ofstream& operator<<(ofstream& scrie, const Laptops& l) {
-		scrie <<"Cod fabricatie: "<< l.codFabricatie;
+		scrie << "Cod fabricatie: " << l.codFabricatie;
 		scrie << ". Anul fabricatiei: " << l.anulFabricatiei;
 		scrie << ", Nr de profiluri: " << l.nrProfiluri;
 		for (int i = 0; i < l.nrProfiluri; i++) {
@@ -713,16 +713,16 @@ public:
 	}
 
 	//scriere in fisier << 
-	friend ofstream& operator<<(ofstream& scrie,const ComponenteExterne& c) {
-		scrie<< c.laptops2;
-		scrie <<" Numele componentei: "<< c.denumireComponenta;
-		scrie << ", Nr de versiuni: "<<c.nrVersiuni<<"-";
+	friend ofstream& operator<<(ofstream& scrie, const ComponenteExterne& c) {
+		scrie << c.laptops2;
+		scrie << " Numele componentei: " << c.denumireComponenta;
+		scrie << ", Nr de versiuni: " << c.nrVersiuni << "-";
 		for (int i = 0; i < c.nrVersiuni; i++) {
-			scrie <<" pret versiunea"<<i+1<<" este: "<< c.pretFiecareVersiune[i]<<", ";
+			scrie << " pret versiunea" << i + 1 << " este: " << c.pretFiecareVersiune[i] << ", ";
 		}
 		return scrie;
 	}
-	
+
 	//citire din fisier
 
 	friend ifstream& operator>>(ifstream& citeste, ComponenteExterne& c) {
@@ -731,7 +731,7 @@ public:
 		if (c.pretFiecareVersiune != NULL) delete[]c.pretFiecareVersiune;
 		c.pretFiecareVersiune = new int[c.nrVersiuni];
 		for (int i = 0; i < c.nrVersiuni; i++) {
-			citeste>>c.pretFiecareVersiune[i];
+			citeste >> c.pretFiecareVersiune[i];
 		}
 		return citeste;
 	}
@@ -744,17 +744,17 @@ public:
 
 class SmartPhonesCuCamera4k :public SmartPhones {
 private:
-	float pretTelefon4k;
+	double pretTelefon4k;
 	int nrCamere;
 	int* megapixeli;
 public:
 	SmartPhonesCuCamera4k() :SmartPhones() {
 		this->pretTelefon4k = 2499.99;
 		this->nrCamere = 2;
-		this->megapixeli = new int[nrCamere] {120,130};
+		this->megapixeli = new int[nrCamere] {120, 130};
 	}
-	
-	SmartPhonesCuCamera4k(float pretNou, int camereNou, int* megapixeliNou) :SmartPhones() {
+
+	SmartPhonesCuCamera4k(double pretNou, int camereNou, int* megapixeliNou) :SmartPhones() {
 		this->pretTelefon4k = pretNou;
 		this->nrCamere = camereNou;
 		this->megapixeli = new int[camereNou];
@@ -762,7 +762,7 @@ public:
 			this->megapixeli[i] = megapixeliNou[i];
 		}
 	}
-	
+
 	//constr copiere
 	SmartPhonesCuCamera4k(const SmartPhonesCuCamera4k& s4) :SmartPhones(s4) {
 		this->pretTelefon4k = s4.pretTelefon4k;
@@ -789,7 +789,7 @@ public:
 	}
 
 	//getters
-	float getPretTelefon4k() {
+	double getPretTelefon4k() {
 		return this->pretTelefon4k;
 	}
 	int getNrCamere() {
@@ -806,7 +806,7 @@ public:
 	}
 
 	//setters
-	void setPretTelefon4k(float pretNou) {
+	void setPretTelefon4k(double pretNou) {
 		this->pretTelefon4k = pretNou;
 	}
 	void setNrCamere(int nrCamNou, int* megapixeliNoi) {
@@ -817,7 +817,7 @@ public:
 			this->megapixeli[i] = megapixeliNoi[i];
 		}
 	}
-	
+
 	void setMarca(string marcaIar) {
 		SmartPhones::setMarca(marcaIar);
 	}
@@ -833,7 +833,7 @@ public:
 		scrie << " megapixeli. ";
 		return scrie;
 	}
-	
+
 	~SmartPhonesCuCamera4k() {
 		if (megapixeli != NULL) delete[]megapixeli;
 	}
@@ -847,13 +847,13 @@ private:
 	int nrMaximDeAmprentePrimite;
 	int* deCateOriAFostFolositaFiecareAmprenta;
 public:
-	LaptopTouchscreen():Laptops(2,"Samsung") {
+	LaptopTouchscreen() :Laptops(2, "Samsung") {
 		this->nevoieDePixSpecial = 1;
 		this->nrMaximDeAmprentePrimite = 2;
 		this->deCateOriAFostFolositaFiecareAmprenta = new int[nrMaximDeAmprentePrimite] {1303, 1310};
 	}
-	
-	LaptopTouchscreen(bool nevNoua,int maximNou,int* folositNou) :Laptops(2, "Samsung") {
+
+	LaptopTouchscreen(bool nevNoua, int maximNou, int* folositNou) :Laptops(2, "Samsung") {
 		this->nevoieDePixSpecial = nevNoua;
 		this->nrMaximDeAmprentePrimite = maximNou;
 		this->deCateOriAFostFolositaFiecareAmprenta = new int[maximNou];
@@ -863,7 +863,7 @@ public:
 	}
 
 	//constr copiere
-	LaptopTouchscreen(const LaptopTouchscreen& lp):Laptops(lp) {
+	LaptopTouchscreen(const LaptopTouchscreen& lp) :Laptops(lp) {
 		this->nevoieDePixSpecial = lp.nevoieDePixSpecial;
 		this->nrMaximDeAmprentePrimite = lp.nrMaximDeAmprentePrimite;
 		this->deCateOriAFostFolositaFiecareAmprenta = new int[lp.nrMaximDeAmprentePrimite];
@@ -885,8 +885,8 @@ public:
 		}
 		return *this;
 	}
-	
-	
+
+
 
 	//getters
 	bool getPix() {
@@ -905,7 +905,7 @@ public:
 	void setPix(bool pixNou) {
 		this->nevoieDePixSpecial = pixNou;
 	}
-	void setNrAmprMaxim(int nrAmprNou,int* deCateOriFAmpr) {
+	void setNrAmprMaxim(int nrAmprNou, int* deCateOriFAmpr) {
 		this->nrMaximDeAmprentePrimite = nrAmprNou;
 		this->deCateOriAFostFolositaFiecareAmprenta = new int[nrAmprNou];
 		for (int i = 0; i < nrAmprNou; i++) {
@@ -918,7 +918,7 @@ public:
 		scrie << (Laptops)lt;
 		scrie << ". Are nevoie de pix special? " << (lt.nevoieDePixSpecial ? " Are nevoie " : " Nu are nevoie ") << ". Cate amprente poate inregistra maxim? " << lt.nrMaximDeAmprentePrimite << ". De cate ori a fost folosita fiecare amprenta?";
 		for (int i = 0; i < lt.nrMaximDeAmprentePrimite; i++) {
-			scrie<<" amprenta "<<i+1 << " de " << lt.deCateOriAFostFolositaFiecareAmprenta[i] << " ori,";
+			scrie << " amprenta " << i + 1 << " de " << lt.deCateOriAFostFolositaFiecareAmprenta[i] << " ori,";
 		}
 		return scrie;
 	}
@@ -927,13 +927,13 @@ public:
 		if (deCateOriAFostFolositaFiecareAmprenta != NULL) delete[]deCateOriAFostFolositaFiecareAmprenta;
 	}
 };
- 
+
 
 void main() {
 
 	Servers servers;
 	Servers servers1(200.8);
-	Servers servers2(2,"Linux");
+	Servers servers2(2, "Linux");
 	cout << servers;
 	cout << servers1;
 	cout << servers2;
@@ -946,7 +946,7 @@ void main() {
 	servers3.setStocare(500.55);
 	servers3.setSistemOperare("Linux");
 	servers3.setEsteSecurizat(false);
-	cout << servers3;             
+	cout << servers3;
 	cout << endl;
 
 
@@ -961,12 +961,12 @@ void main() {
 
 	Servers servers4;
 	cin >> servers4;
-	cout << servers4; 
+	cout << servers4;
 	cout << endl;
 
 	float stocaretotala;
 	stocaretotala = (float)servers1;
-	cout <<"Stocarea serverului 1 este: "<< stocaretotala;
+	cout << "Stocarea serverului 1 este: " << stocaretotala;
 
 
 
@@ -977,9 +977,9 @@ void main() {
 	SmartPhones smartphones;
 	cout << smartphones << endl;
 	SmartPhones smartphones2("Iphone");
-	cout<<smartphones2 << endl;
+	cout << smartphones2 << endl;
 	SmartPhones smartphones3(1002, "Lenovo");
-	cout << smartphones3<<endl;
+	cout << smartphones3 << endl;
 	SmartPhones sp4(smartphones2);
 	cout << sp4 << endl;
 
@@ -991,9 +991,9 @@ void main() {
 	sp4.setMarca("Lenovo");
 	cout << sp4;
 	cout << endl;
-	
-	
-	
+
+
+
 
 	//getters
 	cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
@@ -1001,7 +1001,7 @@ void main() {
 	cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
 	cout << ". Dimensiuni zone stocare smartphone4: ";
 	for (int i = 0; i < sp4.getNrStocari(); i++) {
-		cout << sp4.getDimensiuneZonaStocare(i)<<", ";
+		cout << sp4.getDimensiuneZonaStocare(i) << ", ";
 	}
 	cout << ". Marca smartphone4: " << sp4.getMarca();
 	cout << endl;
@@ -1011,8 +1011,8 @@ void main() {
 	cout << sp5;
 	string denumire;
 	denumire = (string)smartphones2;
-	cout <<endl << "Denumirea smartphoneului 2 este: " << denumire;
-	
+	cout << endl << "Denumirea smartphoneului 2 este: " << denumire;
+
 	float dimensiunipesmartphone;
 	dimensiunipesmartphone = (float)sp4;
 	cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
@@ -1021,8 +1021,8 @@ void main() {
 	SmartPhones sp6;
 	sp6 = ++sp4;
 	cout << endl;
-	cout << endl<<"-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
-	 
+	cout << endl << "-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
+
 	//postincr
 	SmartPhones sp7;
 	sp7 = sp4++;
@@ -1034,27 +1034,27 @@ void main() {
 	cout << laptops << endl;
 
 	Laptops laptops1(1);
-	cout << laptops1<< endl;
+	cout << laptops1 << endl;
 
 	Laptops laptops2(2, "Samsung");
 	cout << laptops2 << endl;
 
 	Laptops laptops3(laptops2);
-	cout<<laptops3 << endl;
+	cout << laptops3 << endl;
 
 	//getters
 	cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
 	for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
-		cout <<" "<< laptops3.getNrAccesari(i);
+		cout << " " << laptops3.getNrAccesari(i);
 	}
 	cout << endl;
-	
+
 	//setters
 	laptops3.setAnulFabricatiei(2024);
 	laptops3.setMarca("Motorola");
 	int accesarinoi[] = { 17,18,19,20,21 };
 	laptops3.setNrProfiluri(5, accesarinoi);
-	cout<<laptops3;
+	cout << laptops3;
 
 	Laptops laptops4;
 	cin >> laptops4;
@@ -1062,17 +1062,17 @@ void main() {
 
 	string den;
 	den = (string)laptops4;
-	cout << endl<<"Denumirea laptopului 4 este: " << den;
+	cout << endl << "Denumirea laptopului 4 este: " << den;
 
 	float nrmediuaccesari;
 	nrmediuaccesari = (float)laptops3;
-	cout <<endl<< "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
+	cout << endl << "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
 
 
 	//preincrem
 	Laptops laptops5;
 	laptops5 = ++laptops3;
-	cout <<endl<< "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
+	cout << endl << "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
 	//postincrem
 	Laptops laptops6;
 	laptops6 = laptops3++;
@@ -1092,7 +1092,7 @@ void main() {
 	vectorServers.push_back(server1);
 
 	for (const auto& server : vectorServers) {
-		cout<<server1;
+		cout << server1;
 	}
 
 
@@ -1105,7 +1105,7 @@ void main() {
 	for (const auto& phone : vectorSmartPhones) {
 		cout << phone1;
 	}
-	
+
 
 
 
@@ -1162,7 +1162,7 @@ void main() {
 	comp5 = ++comp2;
 	cout << "COMP 5 ESTE" << comp5;
 
-	
+
 
 	ofstream file("fisier.txt", ios::out);
 	file << comp2;
@@ -1196,7 +1196,7 @@ void main() {
 	}
 
 	smartphones3.serializare();
-	cout<< smartphones3;
+	cout << smartphones3;
 
 	SmartPhones sp10;
 	sp10.deseralizare();
@@ -1204,13 +1204,13 @@ void main() {
 
 	servers2.serializare();
 	cout << servers2;
-	
+
 	Servers servers10;
 	servers10.deseralizare();
-	cout<< servers10;
-	
+	cout << servers10;
+
 	SmartPhonesCuCamera4k su;
-	cout << su; 
+	cout << su;
 	cout << endl;
 	int mega[] = { 99,100,101 };
 	SmartPhonesCuCamera4k su2(3299.99, 3, mega);
@@ -1221,9 +1221,9 @@ void main() {
 
 
 	//getters
-	cout << endl << "Marca telefonului " << su3.getMarca() << ". Nr stocari al telefonului: " << su3.getCateStocari()<< ". Pret telefon " << su3.getPretTelefon4k() << " Nr camere " << su3.getNrCamere() << " cu nr de megapixeli: ";
+	cout << endl << "Marca telefonului " << su3.getMarca() << ". Nr stocari al telefonului: " << su3.getCateStocari() << ". Pret telefon " << su3.getPretTelefon4k() << " Nr camere " << su3.getNrCamere() << " cu nr de megapixeli: ";
 	for (int i = 0; i < su3.getNrCamere(); i++) {
-		cout << su3.getMexapixeli(i)<<", ";
+		cout << su3.getMexapixeli(i) << ", ";
 	}
 
 	//setters
@@ -1231,16 +1231,16 @@ void main() {
 	int pixeli[] = { 200,201,202,203 };
 	su3.setNrCamere(4, pixeli);
 	su3.setMarca("Lovolk");
-	cout<<endl << su3;
+	cout << endl << su3;
 
 	LaptopTouchscreen lt;
-	cout <<endl<<"Laptop cu touchscreen 1:" <<lt;
+	cout << endl << "Laptop cu touchscreen 1:" << lt;
 	int folosit[] = { 123,456,789,101 };
 	LaptopTouchscreen lt1(0, 4, folosit);
-	cout <<endl<<"Laptop cu touchscreen 2:"<< lt1;
-	
+	cout << endl << "Laptop cu touchscreen 2:" << lt1;
+
 	//getters
-	cout << endl<< " Are nev de pix? " << (lt1.getPix() ? "da" : "nu") << " Marca laptop: " << lt1.getMarcaLaptop() << " Nr maxim de utilizatori care pot seta o amprenta: " << lt1.getNrAmprMaxim() << " De cate ori si-a folosit fiecare utilizator amprenta: ";
+	cout << endl << " Are nev de pix? " << (lt1.getPix() ? "da" : "nu") << " Marca laptop: " << lt1.getMarcaLaptop() << " Nr maxim de utilizatori care pot seta o amprenta: " << lt1.getNrAmprMaxim() << " De cate ori si-a folosit fiecare utilizator amprenta: ";
 	for (int i = 0; i < lt1.getNrAmprMaxim(); i++) {
 		cout << " utilizatorul " << i + 1 << " a folosit de " << lt1.getDeCateOriFol(i) << " ori";
 	}
@@ -1249,21 +1249,21 @@ void main() {
 	lt1.setPix(0);
 	int ampr[] = { 12,14,15,15,71 };
 	lt1.setNrAmprMaxim(5, ampr);
-	cout <<endl<<" Specificatiile si informatiile laptopului 2 cu touchscreen au fost actualizate: " << lt1;
+	cout << endl << " Specificatiile si informatiile laptopului 2 cu touchscreen au fost actualizate: " << lt1;
 
 
-	Laptops *ptr= &lt;
-	cout <<endl<< "______________________________________________________"<<endl << "Marca: "<< ptr->getMarca()<<". An fabricatie: " << ptr->getanulFabricatiei()<<". Cod fabricatie: " << ptr->getCodFabricatie()<<". Nr profiluri: " << ptr->getNrProfiluri();
+	Laptops* ptr = &lt;
+	cout << endl << "______________________________________________________" << endl << "Marca: " << ptr->getMarca() << ". An fabricatie: " << ptr->getanulFabricatiei() << ". Cod fabricatie: " << ptr->getCodFabricatie() << ". Nr profiluri: " << ptr->getNrProfiluri();
 	for (int i = 0; i < ptr->getNrProfiluri(); i++) {
-		cout <<" profilul "<<i+1<<" are " << ptr->getNrAccesari(i)<< " accesari ";
-		if (i < ptr->getNrProfiluri()-1) cout << ", ";
+		cout << " profilul " << i + 1 << " are " << ptr->getNrAccesari(i) << " accesari ";
+		if (i < ptr->getNrProfiluri() - 1) cout << ", ";
 		else cout << ".";
 	}
 
 	SmartPhones* smph = &su;
-	cout<<endl<< "______________________________________________________" << endl<< "Codul de fabricatie: " << smph->getCodFabricatie() << ". Anul fabricatiei:" << smph->getAnulFabricatiei() << ". Marca este: " << smph->getMarca() << ". Numarul de stocari este de: " << smph->getNrStocari() << " gb. Dimensiunile fiind de: ";
+	cout << endl << "______________________________________________________" << endl << "Codul de fabricatie: " << smph->getCodFabricatie() << ". Anul fabricatiei:" << smph->getAnulFabricatiei() << ". Marca este: " << smph->getMarca() << ". Numarul de stocari este de: " << smph->getNrStocari() << " gb. Dimensiunile fiind de: ";
 	for (int i = 0; i < smph->getNrStocari(); i++) {
-		cout <<" stocarea "<<i+1<<" are "<< smph->getDimensiuneZonaStocare(i)<<" gb ";
+		cout << " stocarea " << i + 1 << " are " << smph->getDimensiuneZonaStocare(i) << " gb ";
 		if (i < smph->getNrStocari() - 1) cout << ", ";
 		else cout << ".";
 	}
