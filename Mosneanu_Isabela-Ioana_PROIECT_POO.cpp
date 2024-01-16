@@ -104,7 +104,7 @@ public:
 				delete[]sistemOperare;
 			}
 			stocare = s.stocare;
-			sistemOperare = new char[strlen(sistemOperare) + 1];
+			sistemOperare = new char[strlen(s.sistemOperare) + 1];
 			strcpy_s(s.sistemOperare, strlen(sistemOperare) + 1, sistemOperare);
 			esteSecurizat = s.esteSecurizat;
 		}
@@ -931,42 +931,42 @@ public:
 
 void main() {
 
-	Servers servers;
-	Servers servers1(200.8);
-	Servers servers2(2, "Linux");
-	cout << servers;
-	cout << servers1;
-	cout << servers2;
-	Servers servers3(servers1);
+	//Servers servers;
+	//Servers servers1(200.8);
+	//Servers servers2(2, "Linux");
+	//cout << servers;
+	//cout << servers1;
+	//cout << servers2;
+	//Servers servers3(servers1);
 
 
 
-	//setteri:
-	servers3.setGradPopulare(10000);
-	servers3.setStocare(500.55);
-	servers3.setSistemOperare("Linux");
-	servers3.setEsteSecurizat(false);
-	cout << servers3;
-	cout << endl;
+	////setteri:
+	//servers3.setGradPopulare(10000);
+	//servers3.setStocare(500.55);
+	//servers3.setSistemOperare("Linux");
+	//servers3.setEsteSecurizat(false);
+	//cout << servers3;
+	//cout << endl;
 
 
 
-	//getteri:
-	cout << "Id servers3: " << servers3.getId() << endl;
-	cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
-	cout << "Stocare servers3: " << servers3.getStocare() << endl;
-	cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
-	cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
-	cout << endl;
+	////getteri:
+	//cout << "Id servers3: " << servers3.getId() << endl;
+	//cout << "GradPopulare servers3: " << servers3.getGradPopulare() << endl;
+	//cout << "Stocare servers3: " << servers3.getStocare() << endl;
+	//cout << "SistemOperare servers3: " << servers3.getSistemOperare() << endl;
+	//cout << (servers3.getEsteSecurizat() ? "Este securizat servers3 " : "Nu e securizat servers3") << endl;
+	//cout << endl;
 
-	Servers servers4;
-	cin >> servers4;
-	cout << servers4;
-	cout << endl;
+	//Servers servers4;
+	//cin >> servers4;
+	//cout << servers4;
+	//cout << endl;
 
-	float stocaretotala;
-	stocaretotala = (float)servers1;
-	cout << "Stocarea serverului 1 este: " << stocaretotala;
+	//float stocaretotala;
+	//stocaretotala = (float)servers1;
+	//cout << "Stocarea serverului 1 este: " << stocaretotala;
 
 
 
@@ -974,241 +974,242 @@ void main() {
 
 
 
-	SmartPhones smartphones;
-	cout << smartphones << endl;
-	SmartPhones smartphones2("Iphone");
-	cout << smartphones2 << endl;
-	SmartPhones smartphones3(1002, "Lenovo");
-	cout << smartphones3 << endl;
-	SmartPhones sp4(smartphones2);
-	cout << sp4 << endl;
+	//SmartPhones smartphones;
+	//cout << smartphones << endl;
+	//SmartPhones smartphones2("Iphone");
+	//cout << smartphones2 << endl;
+	//SmartPhones smartphones3(1002, "Lenovo");
+	//cout << smartphones3 << endl;
+	//SmartPhones sp4(smartphones2);
+	//cout << sp4 << endl;
 
 
-	//setters
-	sp4.setAnulFabricatiei(2023);
-	int dimnoi[] = { 16,32,64,124,256 };
-	sp4.setNrStocari(5, dimnoi);
-	sp4.setMarca("Lenovo");
-	cout << sp4;
-	cout << endl;
+	////setters
+	//sp4.setAnulFabricatiei(2023);
+	//int dimnoi[] = { 16,32,64,124,256 };
+	//sp4.setNrStocari(5, dimnoi);
+	//sp4.setMarca("Lenovo");
+	//cout << sp4;
+	//cout << endl;
 
 
 
 
-	//getters
-	cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
-	cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
-	cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
-	cout << ". Dimensiuni zone stocare smartphone4: ";
-	for (int i = 0; i < sp4.getNrStocari(); i++) {
-		cout << sp4.getDimensiuneZonaStocare(i) << ", ";
-	}
-	cout << ". Marca smartphone4: " << sp4.getMarca();
-	cout << endl;
+	////getters
+	//cout << "Cod fabricatie smartphone4: " << sp4.getCodFabricatie();
+	//cout << ". Anul fabricatiei smartphone4: " << sp4.getAnulFabricatiei();
+	//cout << ". Nr stocari smartphone4: " << sp4.getNrStocari();
+	//cout << ". Dimensiuni zone stocare smartphone4: ";
+	//for (int i = 0; i < sp4.getNrStocari(); i++) {
+	//	cout << sp4.getDimensiuneZonaStocare(i) << ", ";
+	//}
+	//cout << ". Marca smartphone4: " << sp4.getMarca();
+	//cout << endl;
 
-	SmartPhones sp5;
-	cin >> sp5;
-	cout << sp5;
-	string denumire;
-	denumire = (string)smartphones2;
-	cout << endl << "Denumirea smartphoneului 2 este: " << denumire;
+	//SmartPhones sp5;
+	//cin >> sp5;
+	//cout << sp5;
+	//string denumire;
+	//denumire = (string)smartphones2;
+	//cout << endl << "Denumirea smartphoneului 2 este: " << denumire;
 
-	float dimensiunipesmartphone;
-	dimensiunipesmartphone = (float)sp4;
-	cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
+	//float dimensiunipesmartphone;
+	//dimensiunipesmartphone = (float)sp4;
+	//cout << "Dimensiunea medie a smartphoneului 4 este: " << dimensiunipesmartphone;
 
-	//preincr
-	SmartPhones sp6;
-	sp6 = ++sp4;
-	cout << endl;
-	cout << endl << "-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
+	////preincr
+	//SmartPhones sp6;
+	//sp6 = ++sp4;
+	//cout << endl;
+	//cout << endl << "-----Preincrementarea: " << sp6 << " SIII " << sp4 << endl;
 
-	//postincr
-	SmartPhones sp7;
-	sp7 = sp4++;
-	cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
+	////postincr
+	//SmartPhones sp7;
+	//sp7 = sp4++;
+	//cout << endl << "-----Postincrementarea: " << sp7 << " SIII " << sp4 << endl;
 
 
-	cout << endl;
-	Laptops laptops;
-	cout << laptops << endl;
+	//cout << endl;
+	//Laptops laptops;
+	//cout << laptops << endl;
 
-	Laptops laptops1(1);
-	cout << laptops1 << endl;
+	//Laptops laptops1(1);
+	//cout << laptops1 << endl;
 
-	Laptops laptops2(2, "Samsung");
-	cout << laptops2 << endl;
+	//Laptops laptops2(2, "Samsung");
+	//cout << laptops2 << endl;
 
-	Laptops laptops3(laptops2);
-	cout << laptops3 << endl;
+	//Laptops laptops3(laptops2);
+	//cout << laptops3 << endl;
 
-	//getters
-	cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
-	for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
-		cout << " " << laptops3.getNrAccesari(i);
-	}
-	cout << endl;
+	////getters
+	//cout << "Pt laptops3:    " << laptops3.getCodFabricatie() << " " << laptops3.getanulFabricatiei() << " " << laptops3.getMarca() << " " << laptops3.getNrProfiluri();
+	//for (int i = 0; i < laptops3.getNrProfiluri(); i++) {
+	//	cout << " " << laptops3.getNrAccesari(i);
+	//}
+	//cout << endl;
 
-	//setters
-	laptops3.setAnulFabricatiei(2024);
-	laptops3.setMarca("Motorola");
-	int accesarinoi[] = { 17,18,19,20,21 };
-	laptops3.setNrProfiluri(5, accesarinoi);
-	cout << laptops3;
+	////setters
+	//laptops3.setAnulFabricatiei(2024);
+	//laptops3.setMarca("Motorola");
+	//int accesarinoi[] = { 17,18,19,20,21 };
+	//laptops3.setNrProfiluri(5, accesarinoi);
+	//cout << laptops3;
 
-	Laptops laptops4;
-	cin >> laptops4;
-	cout << laptops4;
+	//Laptops laptops4;
+	//cin >> laptops4;
+	//cout << laptops4;
 
-	string den;
-	den = (string)laptops4;
-	cout << endl << "Denumirea laptopului 4 este: " << den;
+	//string den;
+	//den = (string)laptops4;
+	//cout << endl << "Denumirea laptopului 4 este: " << den;
 
-	float nrmediuaccesari;
-	nrmediuaccesari = (float)laptops3;
-	cout << endl << "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
+	//float nrmediuaccesari;
+	//nrmediuaccesari = (float)laptops3;
+	//cout << endl << "Nr mediu de accesari la profilurile laptopului 3 este de: " << nrmediuaccesari;
 
 
-	//preincrem
-	Laptops laptops5;
-	laptops5 = ++laptops3;
-	cout << endl << "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
-	//postincrem
-	Laptops laptops6;
-	laptops6 = laptops3++;
-	cout << endl << "-----Postincrementarea: " << laptops6 << "SIIIIIIIIi" << laptops3;
+	////preincrem
+	//Laptops laptops5;
+	//laptops5 = ++laptops3;
+	//cout << endl << "-----Preincrementarea: " << laptops5 << "SIIIIIIIIi" << laptops3;
+	////postincrem
+	//Laptops laptops6;
+	//laptops6 = laptops3++;
+	//cout << endl << "-----Postincrementarea: " << laptops6 << "SIIIIIIIIi" << laptops3;
 
 
 
 
-	vector<Servers> vectorServers;
-	vector<SmartPhones> vectorSmartPhones;
-	vector<Laptops> vectorLaptops;
+	//vector<Servers> vectorServers;
+	//vector<SmartPhones> vectorSmartPhones;
+	//vector<Laptops> vectorLaptops;
 
 
 
-	Servers server1;
-	cin >> server1;
-	vectorServers.push_back(server1);
+	//Servers server1;
+	//cin >> server1;
+	//vectorServers.push_back(server1);
 
-	for (const auto& server : vectorServers) {
-		cout << server1;
-	}
+	//for (const auto& server : vectorServers) {
+	//	cout << server1;
+	//}
 
 
 
 
-	SmartPhones phone1;
-	cin >> phone1;
-	vectorSmartPhones.push_back(phone1);
+	//SmartPhones phone1;
+	//cin >> phone1;
+	//vectorSmartPhones.push_back(phone1);
 
-	for (const auto& phone : vectorSmartPhones) {
-		cout << phone1;
-	}
+	//for (const auto& phone : vectorSmartPhones) {
+	//	cout << phone1;
+	//}
 
 
 
 
-	Laptops laptop1;
-	cin >> laptop1;
-	vectorLaptops.push_back(laptop1);
+	//Laptops laptop1;
+	//cin >> laptop1;
+	//vectorLaptops.push_back(laptop1);
 
-	for (const auto& laptop : vectorLaptops) {
-		cout << laptop1;
-	}
+	//for (const auto& laptop : vectorLaptops) {
+	//	cout << laptop1;
+	//}
 
 
-	const int rows = 2;
-	const int cols = 2;
-	Servers matrixServers[rows][cols];
+	//const int rows = 2;
+	//const int cols = 2;
+	//Servers matrixServers[rows][cols];
 
-	for (int i = 0; i < rows; ++i) {
-		for (int j = 0; j < cols; ++j) {
-			cin >> matrixServers[i][j];
-		}
-	}
+	//for (int i = 0; i < rows; ++i) {
+	//	for (int j = 0; j < cols; ++j) {
+	//		cin >> matrixServers[i][j];
+	//	}
+	//}
 
-	for (int i = 0; i < rows; ++i) {
-		for (int j = 0; j < cols; ++j) {
-			cout << matrixServers[i][j];
-		}
-	}
+	//for (int i = 0; i < rows; ++i) {
+	//	for (int j = 0; j < cols; ++j) {
+	//		cout << matrixServers[i][j];
+	//	}
+	//}
 
-	ComponenteExterne comp1;
-	cout << endl << "COMP 1 ESTE" << comp1;
-	int preturinoi[] = { 900,901,902 };
-	ComponenteExterne comp2(3, preturinoi, " Mousepad", laptops2);
-	cout << "COMP 2 ESTE " << comp2;
-	ComponenteExterne comp3(comp2);
-	cout << "COMP 3 ESTE " << comp3;
+	//ComponenteExterne comp1;
+	//cout << endl << "COMP 1 ESTE" << comp1;
+	//int preturinoi[] = { 900,901,902 };
+	//ComponenteExterne comp2(3, preturinoi, " Mousepad", laptops2);
+	//cout << "COMP 2 ESTE " << comp2;
+	//ComponenteExterne comp3(comp2);
+	//cout << "COMP 3 ESTE " << comp3;
 
-	//getters
-	cout << "Getter: " << comp3.getLaptops2();
-	cout << "Nr versiuni: " << comp3.getNrVersiuni() << " : ";
-	for (int i = 0; i < comp3.getNrVersiuni(); i++) {
-		cout << "versiunea" << i + 1 << " are pretul " << comp3.getPretFiecareVersiune(i) << ", ";
-	}
-	cout << " Denumirea componentei: " << comp3.getDenumireComponenta();
+	////getters
+	//cout << "Getter: " << comp3.getLaptops2();
+	//cout << "Nr versiuni: " << comp3.getNrVersiuni() << " : ";
+	//for (int i = 0; i < comp3.getNrVersiuni(); i++) {
+	//	cout << "versiunea" << i + 1 << " are pretul " << comp3.getPretFiecareVersiune(i) << ", ";
+	//}
+	//cout << " Denumirea componentei: " << comp3.getDenumireComponenta();
 
-	int nrvers[] = { 123,456,789,159 };
-	cout << " Componenta 3 dupa update: ";
-	comp3.setNrVersiuni(4, nrvers);
-	cout << comp3;
+	//int nrvers[] = { 123,456,789,159 };
+	//cout << " Componenta 3 dupa update: ";
+	//comp3.setNrVersiuni(4, nrvers);
+	//cout << comp3;
 
-	ComponenteExterne comp4;
-	cin >> comp4;
+	//ComponenteExterne comp4;
+	//cin >> comp4;
 
-	ComponenteExterne comp5;
-	comp5 = ++comp2;
-	cout << "COMP 5 ESTE" << comp5;
+	//ComponenteExterne comp5;
+	//comp5 = ++comp2;
+	//cout << "COMP 5 ESTE" << comp5;
 
 
 
-	ofstream file("fisier.txt", ios::out);
-	file << comp2;
+	//ofstream file("fisier.txt", ios::out);
+	//file << comp2;
 
-	ifstream citire("fisier.txt", ios::in);
-	ComponenteExterne comp10;
-	cin >> comp10;
-	file << comp10;              //mi a pus in fisier tot ce citisem de la tast
+	//ifstream citire("fisier.txt", ios::in);
+	//ComponenteExterne comp10;
+	//cin >> comp10;
+	//file << comp10;              //mi a pus in fisier tot ce citisem de la tast
 
-	ofstream filee("daaa.txt", ios::out);
-	filee << laptops2;
+	//ofstream filee("daaa.txt", ios::out);
+	//filee << laptops2;
 
-	Laptops laptops10;
-	cin >> laptops10;
-	filee << laptops10;
+	//Laptops laptops10;
+	//cin >> laptops10;
+	//filee << laptops10;
 
-	ifstream citeste("daaa.txt");
-	Laptops laptopCitit;
+	//ifstream citeste("daaa.txt");
+	//Laptops laptopCitit;
 
-	if (citeste)
-	{
-		cout << "Datele pacientului din fisierul text: " << endl;
-		citeste >> laptopCitit;
-		cout << laptopCitit << endl;
-		citeste.close();
-		cout << "Datele au fost citite cu succes!" << endl;
-	}
-	else
-	{
-		cout << "Fisierul text nu s-a putut deschide." << endl;
-	}
+	//if (citeste)
+	//{
+	//	cout << "Datele pacientului din fisierul text: " << endl;
+	//	citeste >> laptopCitit;
+	//	cout << laptopCitit << endl;
+	//	citeste.close();
+	//	cout << "Datele au fost citite cu succes!" << endl;
+	//}
+	//else
+	//{
+	//	cout << "Fisierul text nu s-a putut deschide." << endl;
+	//}
 
-	smartphones3.serializare();
-	cout << smartphones3;
+	//smartphones3.serializare();
+	//cout << smartphones3;
 
-	SmartPhones sp10;
-	sp10.deseralizare();
-	cout << sp10;
+	//SmartPhones sp10;
+	//sp10.deseralizare();
+	//cout << sp10;
 
-	servers2.serializare();
-	cout << servers2;
+	//servers2.serializare();
+	//cout << servers2;
 
-	Servers servers10;
-	servers10.deseralizare();
-	cout << servers10;
+	//Servers servers10;
+	//servers10.deseralizare();
+	//cout << servers10;
 
+	cout << "-----------------------SMARTPHONES-----------------------"<<endl;
 	SmartPhonesCuCamera4k su;
 	cout << su;
 	cout << endl;
@@ -1233,6 +1234,9 @@ void main() {
 	su3.setMarca("Lovolk");
 	cout << endl << su3;
 
+
+	cout << "-----------------------LAPTOPS-----------------------";
+
 	LaptopTouchscreen lt;
 	cout << endl << "Laptop cu touchscreen 1:" << lt;
 	int folosit[] = { 123,456,789,101 };
@@ -1252,7 +1256,7 @@ void main() {
 	cout << endl << " Specificatiile si informatiile laptopului 2 cu touchscreen au fost actualizate: " << lt1;
 
 
-	Laptops* ptr = &lt;
+	/*Laptops* ptr = &lt;
 	cout << endl << "______________________________________________________" << endl << "Marca: " << ptr->getMarca() << ". An fabricatie: " << ptr->getanulFabricatiei() << ". Cod fabricatie: " << ptr->getCodFabricatie() << ". Nr profiluri: " << ptr->getNrProfiluri();
 	for (int i = 0; i < ptr->getNrProfiluri(); i++) {
 		cout << " profilul " << i + 1 << " are " << ptr->getNrAccesari(i) << " accesari ";
@@ -1266,6 +1270,6 @@ void main() {
 		cout << " stocarea " << i + 1 << " are " << smph->getDimensiuneZonaStocare(i) << " gb ";
 		if (i < smph->getNrStocari() - 1) cout << ", ";
 		else cout << ".";
-	}
+	}*/
 
 }
